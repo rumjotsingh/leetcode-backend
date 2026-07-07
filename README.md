@@ -310,6 +310,30 @@ The modular structure supports future features without major refactoring:
 - Subscription plans
 - Gamification
 
+## Production Deployment
+
+```bash
+cp .env.example .env          # fill in secrets
+docker compose up -d --build  # starts caddy + backend + worker + redis
+
+docker ps
+curl https://leetcode.rumjot.me/health
+```
+
+**Files:** `Dockerfile` · `docker-compose.yml` · `Caddyfile`
+
+| Service | Role |
+|---|---|
+| `caddy` | HTTPS on ports 80/443 |
+| `leetcode-backend` | API (internal port 3000 only) |
+| `leetcode-worker` | Async submission judge |
+| `redis` | Queue & cache |
+
+**Update after git pull:**
+```bash
+git pull && docker compose up -d --build
+```
+
 ## License
 
 MIT

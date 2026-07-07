@@ -1,35 +1,95 @@
-version: '3.8'
-
 services:
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: always
     ports:
-      - '3000:3000'
-    env_file:
-      - .env
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      ACME_EMAIL: ${ACME_EMAIL}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
     depends_on:
-      - redis
-    restart: unless-stopped
+      leetcode-backend:
+        condition: service_healthy
+    networks:
+      - app
 
-  worker:
-    build:
-      context: .
-      dockerfile: Dockerfile.worker
+  leetcode-backend:
+    build: .
+    container_name: leetcode-backend
+    restart: always
+    expose:
+      - "3000"
     env_file:
       - .env
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      REDIS_URL: redis://redis:6379
+    command: ["node", "dist/index.js"]
     depends_on:
-      - redis
-    restart: unless-stopped
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/health').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 45s
+    networks:
+      - app
+
+  leetcode-worker:
+    build: .
+    container_name: leetcode-worker
+    restart: always
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      REDIS_URL: redis://redis:6379
+    command: ["node", "dist/worker.js"]
+    depends_on:
+      redis:
+        condition: service_healthy
+      leetcode-backend:
+        condition: service_healthy
+    networks:
+      - app
 
   redis:
     image: redis:7-alpine
-    ports:
-      - '6379:6379'
+    container_name: leetcode-redis
+    restart: always
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    expose:
+      - "6379"
     volumes:
       - redis_data:/data
-    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - app
 
 volumes:
+  caddy_data:
+  caddy_config:
   redis_data:
+
+networks:
+  app:
+    driver: bridge

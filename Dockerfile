@@ -22,4 +22,5 @@ COPY --from=builder /app/dist ./dist
 
 EXPOSE 3000
 
+# Overridden in docker-compose for worker: node dist/worker.js
 CMD ["node", "dist/index.js"]
