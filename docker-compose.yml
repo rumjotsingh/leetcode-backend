@@ -24,12 +24,12 @@ services:
     container_name: leetcode-backend
     restart: always
     expose:
-      - "3000"
+      - "8080"
     env_file:
       - .env
     environment:
       NODE_ENV: production
-      PORT: "3000"
+      PORT: "8080"
       REDIS_URL: redis://redis:6379
     command: ["node", "dist/index.js"]
     depends_on:
@@ -41,7 +41,7 @@ services:
           "CMD",
           "node",
           "-e",
-          "fetch('http://127.0.0.1:3000/health').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+          "fetch('http://127.0.0.1:8080/health').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
         ]
       interval: 30s
       timeout: 5s
