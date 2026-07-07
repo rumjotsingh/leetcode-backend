@@ -1,0 +1,421 @@
+{
+  "total": 100,
+  "distribution": {
+    "EASY": 40,
+    "MEDIUM": 40,
+    "HARD": 20
+  },
+  "sampleSlugs": {
+    "EASY": "sum-of-array-elements",
+    "MEDIUM": "find-pivot-index",
+    "HARD": "target-sum-assign-signs"
+  },
+  "byDifficulty": {
+    "EASY": [
+      {
+        "slug": "sum-of-array-elements",
+        "title": "Sum of Array Elements"
+      },
+      {
+        "slug": "reverse-a-string",
+        "title": "Reverse a String"
+      },
+      {
+        "slug": "find-maximum-in-array",
+        "title": "Find Maximum in Array"
+      },
+      {
+        "slug": "count-vowels-in-string",
+        "title": "Count Vowels in String"
+      },
+      {
+        "slug": "pair-sum-indices",
+        "title": "Pair Sum Indices"
+      },
+      {
+        "slug": "palindrome-check",
+        "title": "Palindrome Check"
+      },
+      {
+        "slug": "factorial-of-n",
+        "title": "Factorial of N"
+      },
+      {
+        "slug": "greatest-common-divisor",
+        "title": "Greatest Common Divisor"
+      },
+      {
+        "slug": "count-set-bits",
+        "title": "Count Set Bits"
+      },
+      {
+        "slug": "merge-two-sorted-arrays",
+        "title": "Merge Two Sorted Arrays"
+      },
+      {
+        "slug": "minimum-of-array",
+        "title": "Minimum of Array"
+      },
+      {
+        "slug": "second-largest-element",
+        "title": "Second Largest Element"
+      },
+      {
+        "slug": "remove-duplicates-sorted",
+        "title": "Remove Duplicates Sorted"
+      },
+      {
+        "slug": "rotate-array-left",
+        "title": "Rotate Array Left"
+      },
+      {
+        "slug": "check-prime-number",
+        "title": "Check Prime Number"
+      },
+      {
+        "slug": "sum-of-digits",
+        "title": "Sum of Digits"
+      },
+      {
+        "slug": "leap-year-check",
+        "title": "Leap Year Check"
+      },
+      {
+        "slug": "absolute-difference",
+        "title": "Absolute Difference"
+      },
+      {
+        "slug": "swap-two-numbers",
+        "title": "Swap Two Numbers"
+      },
+      {
+        "slug": "check-anagram",
+        "title": "Check Anagram"
+      },
+      {
+        "slug": "first-non-repeating-character",
+        "title": "First Non-Repeating Character"
+      },
+      {
+        "slug": "longest-word-in-sentence",
+        "title": "Longest Word in Sentence"
+      },
+      {
+        "slug": "intersection-of-two-arrays",
+        "title": "Intersection of Two Arrays"
+      },
+      {
+        "slug": "missing-number-in-sequence",
+        "title": "Missing Number in Sequence"
+      },
+      {
+        "slug": "move-zeros-to-end",
+        "title": "Move Zeros to End"
+      },
+      {
+        "slug": "valid-parentheses-simple",
+        "title": "Valid Parentheses Simple"
+      },
+      {
+        "slug": "implement-stack-using-array",
+        "title": "Implement Stack using Array"
+      },
+      {
+        "slug": "queue-using-two-stacks-concept",
+        "title": "Queue using Two Stacks Concept"
+      },
+      {
+        "slug": "binary-search-exists",
+        "title": "Binary Search Exists"
+      },
+      {
+        "slug": "search-insert-position",
+        "title": "Search Insert Position"
+      },
+      {
+        "slug": "sqrt-integer-floor",
+        "title": "Sqrt Integer Floor"
+      },
+      {
+        "slug": "power-of-two-check",
+        "title": "Power of Two Check"
+      },
+      {
+        "slug": "hamming-distance-bits",
+        "title": "Hamming Distance Bits"
+      },
+      {
+        "slug": "xor-from-1-to-n",
+        "title": "XOR From 1 To N"
+      },
+      {
+        "slug": "print-pascal-row",
+        "title": "Print Pascal Row"
+      },
+      {
+        "slug": "pythagorean-triplet-check",
+        "title": "Pythagorean Triplet Check"
+      },
+      {
+        "slug": "smallest-missing-positive-easy",
+        "title": "Smallest Missing Positive Easy"
+      },
+      {
+        "slug": "max-consecutive-ones",
+        "title": "Max Consecutive Ones"
+      },
+      {
+        "slug": "ransom-note-construct",
+        "title": "Ransom Note Construct"
+      },
+      {
+        "slug": "valid-mountain-array",
+        "title": "Valid Mountain Array"
+      }
+    ],
+    "MEDIUM": [
+      {
+        "slug": "find-pivot-index",
+        "title": "Find Pivot Index"
+      },
+      {
+        "slug": "running-sum-of-array",
+        "title": "Running Sum of Array"
+      },
+      {
+        "slug": "shuffle-array-simulation",
+        "title": "Shuffle Array Simulation"
+      },
+      {
+        "slug": "matrix-diagonal-sum",
+        "title": "Matrix Diagonal Sum"
+      },
+      {
+        "slug": "transpose-matrix",
+        "title": "Transpose Matrix"
+      },
+      {
+        "slug": "spiral-matrix-direction",
+        "title": "Spiral Matrix Direction"
+      },
+      {
+        "slug": "count-equal-pairs",
+        "title": "Count Equal Pairs"
+      },
+      {
+        "slug": "longest-substring-without-repeat",
+        "title": "Longest Substring Without Repeat"
+      },
+      {
+        "slug": "container-with-most-water",
+        "title": "Container With Most Water"
+      },
+      {
+        "slug": "three-sum-triplets",
+        "title": "Three Sum Triplets"
+      },
+      {
+        "slug": "group-anagrams",
+        "title": "Group Anagrams"
+      },
+      {
+        "slug": "top-k-frequent-elements",
+        "title": "Top K Frequent Elements"
+      },
+      {
+        "slug": "product-except-self",
+        "title": "Product Except Self"
+      },
+      {
+        "slug": "subarray-sum-equals-k",
+        "title": "Subarray Sum Equals K"
+      },
+      {
+        "slug": "longest-increasing-subsequence",
+        "title": "Longest Increasing Subsequence"
+      },
+      {
+        "slug": "coin-change-minimum",
+        "title": "Coin Change Minimum"
+      },
+      {
+        "slug": "house-robber-linear",
+        "title": "House Robber Linear"
+      },
+      {
+        "slug": "decode-ways-count",
+        "title": "Decode Ways Count"
+      },
+      {
+        "slug": "unique-paths-grid",
+        "title": "Unique Paths Grid"
+      },
+      {
+        "slug": "minimum-path-sum-grid",
+        "title": "Minimum Path Sum Grid"
+      },
+      {
+        "slug": "word-break-possible",
+        "title": "Word Break Possible"
+      },
+      {
+        "slug": "lru-cache-simulation",
+        "title": "LRU Cache Simulation"
+      },
+      {
+        "slug": "evaluate-reverse-polish",
+        "title": "Evaluate Reverse Polish"
+      },
+      {
+        "slug": "daily-temperatures-next-greater",
+        "title": "Daily Temperatures Next Greater"
+      },
+      {
+        "slug": "number-of-islands",
+        "title": "Number of Islands"
+      },
+      {
+        "slug": "course-schedule-possible",
+        "title": "Course Schedule Possible"
+      },
+      {
+        "slug": "clone-graph-nodes",
+        "title": "Clone Graph Nodes"
+      },
+      {
+        "slug": "kth-smallest-in-bst",
+        "title": "Kth Smallest in BST"
+      },
+      {
+        "slug": "validate-bst-property",
+        "title": "Validate BST Property"
+      },
+      {
+        "slug": "lowest-common-ancestor-bst",
+        "title": "Lowest Common Ancestor BST"
+      },
+      {
+        "slug": "network-delay-time",
+        "title": "Network Delay Time"
+      },
+      {
+        "slug": "cheapest-flights-k-stops",
+        "title": "Cheapest Flights K Stops"
+      },
+      {
+        "slug": "rotting-oranges-minutes",
+        "title": "Rotting Oranges Minutes"
+      },
+      {
+        "slug": "word-ladder-length",
+        "title": "Word Ladder Length"
+      },
+      {
+        "slug": "pacific-atlantic-flow",
+        "title": "Pacific Atlantic Flow"
+      },
+      {
+        "slug": "surrounded-regions-capture",
+        "title": "Surrounded Regions Capture"
+      },
+      {
+        "slug": "permutations-generate",
+        "title": "Permutations Generate"
+      },
+      {
+        "slug": "combination-sum-ways",
+        "title": "Combination Sum Ways"
+      },
+      {
+        "slug": "n-queens-count-mod",
+        "title": "N Queens Count Mod"
+      },
+      {
+        "slug": "partition-equal-subset",
+        "title": "Partition Equal Subset"
+      }
+    ],
+    "HARD": [
+      {
+        "slug": "target-sum-assign-signs",
+        "title": "Target Sum Assign Signs"
+      },
+      {
+        "slug": "longest-palindromic-substring",
+        "title": "Longest Palindromic Substring"
+      },
+      {
+        "slug": "palindromic-substrings-count",
+        "title": "Palindromic Substrings Count"
+      },
+      {
+        "slug": "edit-distance-levenshtein",
+        "title": "Edit Distance Levenshtein"
+      },
+      {
+        "slug": "interleaving-string-check",
+        "title": "Interleaving String Check"
+      },
+      {
+        "slug": "burst-balloons-max-coins",
+        "title": "Burst Balloons Max Coins"
+      },
+      {
+        "slug": "maximum-subarray-divide-conquer",
+        "title": "Maximum Subarray Divide Conquer"
+      },
+      {
+        "slug": "median-of-two-sorted-arrays",
+        "title": "Median of Two Sorted Arrays"
+      },
+      {
+        "slug": "regular-expression-matching",
+        "title": "Regular Expression Matching"
+      },
+      {
+        "slug": "wildcard-pattern-match",
+        "title": "Wildcard Pattern Match"
+      },
+      {
+        "slug": "longest-valid-parentheses",
+        "title": "Longest Valid Parentheses"
+      },
+      {
+        "slug": "trapping-rain-water-hard",
+        "title": "Trapping Rain Water Hard"
+      },
+      {
+        "slug": "minimum-window-substring-hard",
+        "title": "Minimum Window Substring Hard"
+      },
+      {
+        "slug": "alien-dictionary-order",
+        "title": "Alien Dictionary Order"
+      },
+      {
+        "slug": "serialize-deserialize-tree",
+        "title": "Serialize Deserialize Tree"
+      },
+      {
+        "slug": "binary-tree-max-path-sum",
+        "title": "Binary Tree Max Path Sum"
+      },
+      {
+        "slug": "word-search-ii-trie",
+        "title": "Word Search II Trie"
+      },
+      {
+        "slug": "merge-k-sorted-lists",
+        "title": "Merge K Sorted Lists"
+      },
+      {
+        "slug": "sliding-window-maximum-deque",
+        "title": "Sliding Window Maximum deque"
+      },
+      {
+        "slug": "lfu-cache-operations",
+        "title": "LFU Cache Operations"
+      }
+    ]
+  }
+}

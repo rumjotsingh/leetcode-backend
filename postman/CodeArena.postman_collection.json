@@ -1,0 +1,2696 @@
+{
+  "info": {
+    "name": "CodeArena API",
+    "_postman_id": "codearena-api-v1",
+    "description": "# CodeArena API Collection\n\nProduction-ready Postman collection for the **CodeArena** LeetCode-style backend.\n\n## Setup\n1. Import this collection into Postman.\n2. Set collection variables (defaults provided).\n3. Run **Register** or **Login** — `accessToken` and `refreshToken` are saved automatically.\n4. Use protected endpoints — Bearer auth uses `{{accessToken}}`.\n\n## Base URL\nDefault: `http://localhost:3000/api`\n\n## Problem identifiers\nUse **MongoDB ObjectId** or **slug** for `problemId` (e.g. `sum-of-array-elements`).\nDefault slugs from dataset: EASY=`sum-of-array-elements`, MEDIUM=`find-pivot-index`, HARD=`target-sum-assign-signs`\n\n## Code execution (C++ only)\n- **Language:** C++ only — Judge0 `language_id: 54` (GCC 9.4.0)\n- **Run** (`POST /submissions/run`) — judges **visible test cases only** (sync)\n- **Submit** (`POST /submissions`) — judges **all test cases** via Redis worker (async)\n- Execution service: CodeBox / Judge0 at `EXECUTION_API_URL` with `X-Auth-Token`\n- Submit a **complete C++ program** with `main()` that reads stdin and prints stdout\n\n## Recommended test flow\n1. **Login** → saves tokens\n2. **Get All Problems** → saves `problemId` + `problemSlug`\n3. **Get Problem By Slug** → view hints + starter code\n4. **Run Code** → test against public cases\n5. **Submit Code** → full judge (start `npm run dev:worker`)\n6. **Get Submission** → poll until not PENDING/RUNNING\n\n## Auth Flow\n1. `POST /auth/register` or `POST /auth/login`\n2. Tokens saved to collection variables via test scripts\n3. Protected routes use `Authorization: Bearer {{accessToken}}`\n\n## Roles\n- `USER` — submit code, view problems, profile\n- `ADMIN` — manage problems and tags\n\n## Response Format\n```json\n{ \"success\": true, \"data\": { ... } }\n```\n\n## Error Format\n```json\n{ \"success\": false, \"message\": \"Error description\" }\n```\nValidation errors (400) include an `errors` array with `field` and `message`.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api",
+      "type": "string"
+    },
+    {
+      "key": "accessToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "refreshToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "problemId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "problemSlug",
+      "value": "sum-of-array-elements",
+      "type": "string"
+    },
+    {
+      "key": "easyProblemSlug",
+      "value": "sum-of-array-elements",
+      "type": "string"
+    },
+    {
+      "key": "mediumProblemSlug",
+      "value": "find-pivot-index",
+      "type": "string"
+    },
+    {
+      "key": "hardProblemSlug",
+      "value": "target-sum-assign-signs",
+      "type": "string"
+    },
+    {
+      "key": "submissionId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "userId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "tagId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "username",
+      "value": "codearena_user",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Authentication",
+      "description": "User registration, login, token refresh, and session management.",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{username}}\",\n  \"email\": \"user@codearena.dev\",\n  \"password\": \"SecurePass123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/auth/register",
+            "description": "Register a new user account. Returns user object, access token, and refresh token.\n\n**Validation:**\n- username: 3-30 chars, alphanumeric + underscore\n- email: valid email\n- password: min 8 chars",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "201",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"user\": {\n      \"id\": \"665a1b2c3d4e5f6789012340\",\n      \"username\": \"codearena_user\",\n      \"email\": \"user@codearena.dev\",\n      \"avatar\": \"\",\n      \"role\": \"USER\",\n      \"totalSolved\": 0,\n      \"createdAt\": \"2026-07-07T12:00:00.000Z\"\n    },\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\n    \"refreshToken\": \"a1b2c3d4e5f678901234567890abcdef...\"\n  }\n}"
+            },
+            {
+              "name": "400 Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "400",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Validation error\",\n  \"errors\": [\n    {\n      \"field\": \"password\",\n      \"message\": \"Password must be at least 8 characters\"\n    }\n  ]\n}"
+            },
+            {
+              "name": "409 Conflict",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "409",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Email already registered\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});",
+                  "if (pm.response.code === 200 || pm.response.code === 201) {",
+                  "  const json = pm.response.json();",
+                  "  if (json.data?.accessToken) pm.collectionVariables.set('accessToken', json.data.accessToken);",
+                  "  if (json.data?.refreshToken) pm.collectionVariables.set('refreshToken', json.data.refreshToken);",
+                  "  if (json.data?.user?.id) pm.collectionVariables.set('userId', json.data.user.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@codearena.dev\",\n  \"password\": \"SecurePass123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/auth/login",
+            "description": "Authenticate with email and password. Automatically saves `accessToken` and `refreshToken` to collection variables.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"user\": {\n      \"id\": \"665a1b2c3d4e5f6789012340\",\n      \"username\": \"codearena_user\",\n      \"email\": \"user@codearena.dev\",\n      \"avatar\": \"\",\n      \"role\": \"USER\",\n      \"totalSolved\": 5,\n      \"createdAt\": \"2026-07-07T12:00:00.000Z\"\n    },\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\n    \"refreshToken\": \"a1b2c3d4e5f678901234567890abcdef...\"\n  }\n}"
+            },
+            {
+              "name": "401 Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "401",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Invalid email or password\"\n}"
+            },
+            {
+              "name": "400 Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "400",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Validation error\",\n  \"errors\": [\n    {\n      \"field\": \"email\",\n      \"message\": \"Invalid email address\"\n    }\n  ]\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});",
+                  "if (pm.response.code === 200 || pm.response.code === 201) {",
+                  "  const json = pm.response.json();",
+                  "  if (json.data?.accessToken) pm.collectionVariables.set('accessToken', json.data.accessToken);",
+                  "  if (json.data?.refreshToken) pm.collectionVariables.set('refreshToken', json.data.refreshToken);",
+                  "  if (json.data?.user?.id) pm.collectionVariables.set('userId', json.data.user.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/auth/logout",
+            "description": "Invalidate the refresh token. Pass the refresh token in the request body.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"message\": \"Logged out successfully\"\n}"
+            },
+            {
+              "name": "400 Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "400",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Validation error\",\n  \"errors\": [\n    {\n      \"field\": \"refreshToken\",\n      \"message\": \"Refresh token is required\"\n    }\n  ]\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/auth/refresh",
+            "description": "Exchange a valid refresh token for a new access/refresh token pair. Old refresh token is revoked.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"user\": {\n      \"id\": \"665a1b2c3d4e5f6789012340\",\n      \"username\": \"codearena_user\",\n      \"email\": \"user@codearena.dev\",\n      \"avatar\": \"\",\n      \"role\": \"USER\",\n      \"totalSolved\": 5,\n      \"createdAt\": \"2026-07-07T12:00:00.000Z\"\n    },\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.new...\",\n    \"refreshToken\": \"new_refresh_token_value...\"\n  }\n}"
+            },
+            {
+              "name": "401 Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "401",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Invalid or expired refresh token\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});",
+                  "if (pm.response.code === 200 || pm.response.code === 201) {",
+                  "  const json = pm.response.json();",
+                  "  if (json.data?.accessToken) pm.collectionVariables.set('accessToken', json.data.accessToken);",
+                  "  if (json.data?.refreshToken) pm.collectionVariables.set('refreshToken', json.data.refreshToken);",
+                  "  if (json.data?.user?.id) pm.collectionVariables.set('userId', json.data.user.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/auth/me",
+            "description": "Get the authenticated user profile. Requires valid Bearer access token.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"665a1b2c3d4e5f6789012340\",\n    \"username\": \"codearena_user\",\n    \"email\": \"user@codearena.dev\",\n    \"avatar\": \"\",\n    \"role\": \"USER\",\n    \"totalSolved\": 5,\n    \"createdAt\": \"2026-07-07T12:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "401 Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "401",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Invalid or expired access token\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});",
+                  "if (pm.response.json().data?.id) pm.collectionVariables.set('userId', pm.response.json().data.id);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2. Users",
+      "description": "User profile and account management.",
+      "item": [
+        {
+          "name": "Get User Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/users/{{username}}",
+            "description": "Get public user profile with solve statistics and recent submissions.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"username\": \"codearena_user\",\n    \"avatar\": \"https://avatars.codearena.dev/u/codearena_user.png\",\n    \"totalSolved\": 42,\n    \"easySolved\": 20,\n    \"mediumSolved\": 15,\n    \"hardSolved\": 7,\n    \"recentSubmissions\": [\n      {\n        \"id\": \"665a1b2c3d4e5f6789012346\",\n        \"status\": \"ACCEPTED\",\n        \"language\": \"cpp\",\n        \"runtime\": 68,\n        \"memory\": 42000,\n        \"createdAt\": \"2026-07-07T14:30:00.000Z\",\n        \"problem\": {\n          \"id\": \"665a1b2c3d4e5f6789012345\",\n          \"title\": \"Sum of Array Elements\",\n          \"slug\": \"sum-of-array-elements\"\n        }\n      }\n    ]\n  }\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "404",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"User not found\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"avatar\": \"https://avatars.codearena.dev/u/codearena_user.png\",\n  \"username\": \"new_username\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/users/me",
+            "description": "**Planned endpoint** — Update authenticated user profile (avatar, username).\n\n> Not yet implemented in MVP. Included as API contract reference.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"{{userId}}\",\n    \"username\": \"new_username\",\n    \"avatar\": \"https://avatars.codearena.dev/u/new_username.png\",\n    \"email\": \"user@codearena.dev\",\n    \"role\": \"USER\"\n  }\n}"
+            },
+            {
+              "name": "401 Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "401",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Unauthorized\"\n}"
+            },
+            {
+              "name": "409 Conflict",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "409",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Username already taken\"\n}"
+            },
+            {
+              "name": "422 Unprocessable Entity",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "422",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\",\n  \"errors\": [\n    {\n      \"field\": \"username\",\n      \"message\": \"Username must be 3-30 characters\"\n    }\n  ]\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentPassword\": \"SecurePass123!\",\n  \"newPassword\": \"NewSecurePass456!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/users/me/change-password",
+            "description": "**Planned endpoint** — Change password for authenticated user.\n\n> Not yet implemented in MVP. Included as API contract reference.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"message\": \"Password updated successfully\"\n}"
+            },
+            {
+              "name": "401 Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "401",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Current password is incorrect\"\n}"
+            },
+            {
+              "name": "400 Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "400",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Validation error\",\n  \"errors\": [\n    {\n      \"field\": \"newPassword\",\n      \"message\": \"Password must be at least 8 characters\"\n    }\n  ]\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "3. Problems",
+      "description": "Problem discovery, search, filtering, and admin management.",
+      "item": [
+        {
+          "name": "Get All Problems",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/problems?page=1&limit=20",
+            "description": "List all problems with pagination. Pass Bearer token optionally to include solved status.\n\n**Auto-saves** `problemId` and `problemSlug` from the first result.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"problems\": [\n      {\n        \"id\": \"6a4d1029aa8c1384b2a447a9\",\n        \"title\": \"Sum of Array Elements\",\n        \"slug\": \"sum-of-array-elements\",\n        \"difficulty\": \"EASY\",\n        \"tags\": [\n          \"Arrays\",\n          \"Prefix Sum\"\n        ],\n        \"solved\": false\n      }\n    ],\n    \"pagination\": {\n      \"page\": 1,\n      \"limit\": 20,\n      \"total\": 100,\n      \"totalPages\": 5\n    }\n  }\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});",
+                  "if (pm.response.code === 200) {",
+                  "  const problems = pm.response.json().data?.problems;",
+                  "  if (problems?.[0]?.id) pm.collectionVariables.set('problemId', problems[0].id);",
+                  "  if (problems?.[0]?.slug) pm.collectionVariables.set('problemSlug', problems[0].slug);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Problem By Slug",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/problems/{{problemSlug}}",
+            "description": "Get problem by **slug** (recommended). Returns description, examples, hints, C++ starter code, time/memory limits.\n\nTest cases are only returned for ADMIN users.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"6a4d1029aa8c1384b2a447a9\",\n    \"title\": \"Sum of Array Elements\",\n    \"slug\": \"sum-of-array-elements\",\n    \"description\": \"Given an integer array of size N, compute the sum of all elements.\",\n    \"difficulty\": \"EASY\",\n    \"tags\": [\n      \"Arrays\",\n      \"Prefix Sum\"\n    ],\n    \"constraints\": \"1 <= N <= 10^5\",\n    \"hints\": [\n      \"Starter tip: Maintain a running total variable and add each element to it.\",\n      \"No special data structure is needed — iterate and sum.\"\n    ],\n    \"examples\": [\n      {\n        \"input\": \"3\\\\n1 2 3\",\n        \"output\": \"6\",\n        \"explanation\": \"1+2+3=6.\"\n      }\n    ],\n    \"starterCode\": {\n      \"javascript\": \"\",\n      \"python\": \"\",\n      \"cpp\": \"#include <bits/stdc++.h>\\\\n...\",\n      \"java\": \"\"\n    },\n    \"timeLimit\": 1000,\n    \"memoryLimit\": 256,\n    \"createdAt\": \"2026-01-15T00:00:00.000Z\",\n    \"updatedAt\": \"2026-01-15T00:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "404",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Problem not found\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});",
+                  "const d=pm.response.json().data; if(d?.id) pm.collectionVariables.set('problemId', d.id); if(d?.slug) pm.collectionVariables.set('problemSlug', d.slug);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Problem By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/problems/{{problemId}}",
+            "description": "Get problem by MongoDB ObjectId. Also accepts slug if passed in `problemId` variable.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"6a4d1029aa8c1384b2a447a9\",\n    \"title\": \"Sum of Array Elements\",\n    \"slug\": \"sum-of-array-elements\",\n    \"description\": \"Given an integer array of size N, compute the sum of all elements.\",\n    \"difficulty\": \"EASY\",\n    \"tags\": [\n      \"Arrays\",\n      \"Prefix Sum\"\n    ],\n    \"constraints\": \"1 <= N <= 10^5\",\n    \"hints\": [\n      \"Starter tip: Maintain a running total variable and add each element to it.\"\n    ],\n    \"examples\": [\n      {\n        \"input\": \"3\\\\n1 2 3\",\n        \"output\": \"6\",\n        \"explanation\": \"1+2+3=6.\"\n      }\n    ],\n    \"starterCode\": {\n      \"javascript\": \"\",\n      \"python\": \"\",\n      \"cpp\": \"#include <bits/stdc++.h>\\\\n...\",\n      \"java\": \"\"\n    },\n    \"timeLimit\": 1000,\n    \"memoryLimit\": 256,\n    \"createdAt\": \"2026-01-15T00:00:00.000Z\",\n    \"updatedAt\": \"2026-01-15T00:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "404",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Problem not found\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});",
+                  "const d=pm.response.json().data; if(d?.id) pm.collectionVariables.set('problemId', d.id); if(d?.slug) pm.collectionVariables.set('problemSlug', d.slug);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Easy Problem",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/problems/{{easyProblemSlug}}",
+            "description": "Get sample EASY problem from dataset (`sum-of-array-elements`).",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"slug\": \"sum-of-array-elements\",\n    \"difficulty\": \"EASY\",\n    \"hints\": []\n  }\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});",
+                  "const d=pm.response.json().data; if(d?.id) pm.collectionVariables.set('problemId', d.id); if(d?.slug) pm.collectionVariables.set('problemSlug', d.slug);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Medium Problem",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/problems/{{mediumProblemSlug}}",
+            "description": "Get sample MEDIUM problem (`find-pivot-index`).",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"slug\": \"find-pivot-index\",\n    \"difficulty\": \"MEDIUM\"\n  }\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Hard Problem",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/problems/{{hardProblemSlug}}",
+            "description": "Get sample HARD problem (`target-sum-assign-signs`).",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"slug\": \"target-sum-assign-signs\",\n    \"difficulty\": \"HARD\"\n  }\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Search Problems",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/problems?search=two+sum&page=1&limit=20",
+            "description": "Full-text search across problem titles and descriptions.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"problems\": [\n      {\n        \"id\": \"665a1b2c3d4e5f6789012345\",\n        \"title\": \"Two Sum\",\n        \"slug\": \"two-sum\",\n        \"difficulty\": \"EASY\",\n        \"tags\": [\n          \"Array\",\n          \"Hash Table\"\n        ],\n        \"solved\": false\n      }\n    ],\n    \"pagination\": {\n      \"page\": 1,\n      \"limit\": 20,\n      \"total\": 1,\n      \"totalPages\": 1\n    }\n  }\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filter By Difficulty",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/problems?difficulty=MEDIUM&page=1&limit=20",
+            "description": "Filter problems by difficulty: `EASY`, `MEDIUM`, or `HARD`.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"problems\": [\n      {\n        \"id\": \"665a1b2c3d4e5f6789012347\",\n        \"title\": \"Add Two Numbers\",\n        \"slug\": \"add-two-numbers\",\n        \"difficulty\": \"MEDIUM\",\n        \"tags\": [\n          \"Linked List\",\n          \"Math\"\n        ],\n        \"solved\": false\n      }\n    ],\n    \"pagination\": {\n      \"page\": 1,\n      \"limit\": 20,\n      \"total\": 45,\n      \"totalPages\": 3\n    }\n  }\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filter By Tags",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/problems?tag=dp&page=1&limit=20",
+            "description": "Filter problems by tag (case-insensitive partial match). E.g. `dp` matches `Dynamic Programming`.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"problems\": [\n      {\n        \"id\": \"665a1b2c3d4e5f6789012348\",\n        \"title\": \"Climbing Stairs\",\n        \"slug\": \"climbing-stairs\",\n        \"difficulty\": \"EASY\",\n        \"tags\": [\n          \"Dynamic Programming\"\n        ],\n        \"solved\": true\n      }\n    ],\n    \"pagination\": {\n      \"page\": 1,\n      \"limit\": 20,\n      \"total\": 30,\n      \"totalPages\": 2\n    }\n  }\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filter By Status",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/problems?status=solved&page=1&limit=20",
+            "description": "Filter by solve status: `solved` or `unsolved`. **Requires authentication** to determine user solve state.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"problems\": [\n      {\n        \"id\": \"665a1b2c3d4e5f6789012345\",\n        \"title\": \"Two Sum\",\n        \"slug\": \"two-sum\",\n        \"difficulty\": \"EASY\",\n        \"tags\": [\n          \"Array\",\n          \"Hash Table\"\n        ],\n        \"solved\": true\n      }\n    ],\n    \"pagination\": {\n      \"page\": 1,\n      \"limit\": 20,\n      \"total\": 42,\n      \"totalPages\": 3\n    }\n  }\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Problem (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Two Sum\",\n  \"description\": \"Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.\",\n  \"difficulty\": \"EASY\",\n  \"tags\": [\n    \"Array\",\n    \"Hash Table\"\n  ],\n  \"constraints\": \"2 <= nums.length <= 10^4\\n-10^9 <= nums[i] <= 10^9\",\n  \"examples\": [\n    {\n      \"input\": \"nums = [2,7,11,15], target = 9\",\n      \"output\": \"[0,1]\",\n      \"explanation\": \"Because nums[0] + nums[1] == 9\"\n    }\n  ],\n  \"starterCode\": {\n    \"javascript\": \"/**\\n * @param {number[]} nums\\n * @param {number} target\\n * @return {number[]}\\n */\\nvar twoSum = function(nums, target) {\\n    \\n};\",\n    \"python\": \"class Solution:\\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\\n        pass\",\n    \"cpp\": \"class Solution {\\npublic:\\n    vector<int> twoSum(vector<int>& nums, int target) {\\n        \\n    }\\n};\",\n    \"java\": \"class Solution {\\n    public int[] twoSum(int[] nums, int target) {\\n        \\n    }\\n}\"\n  },\n  \"testCases\": [\n    {\n      \"input\": \"[2,7,11,15]\\n9\",\n      \"expectedOutput\": \"[0,1]\"\n    },\n    {\n      \"input\": \"[3,2,4]\\n6\",\n      \"expectedOutput\": \"[1,2]\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/problems",
+            "description": "Create a new problem. **Requires ADMIN role.** Saves returned `problemId` to collection variables.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "201",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"665a1b2c3d4e5f6789012345\",\n    \"title\": \"Two Sum\",\n    \"slug\": \"two-sum\",\n    \"difficulty\": \"EASY\",\n    \"tags\": [\n      \"Array\",\n      \"Hash Table\"\n    ],\n    \"constraints\": \"2 <= nums.length <= 10^4\",\n    \"examples\": [],\n    \"starterCode\": {},\n    \"createdAt\": \"2026-07-07T12:00:00.000Z\",\n    \"updatedAt\": \"2026-07-07T12:00:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "403 Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "403",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Insufficient permissions\"\n}"
+            },
+            {
+              "name": "400 Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "400",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Validation error\",\n  \"errors\": [\n    {\n      \"field\": \"testCases\",\n      \"message\": \"At least one test case is required\"\n    }\n  ]\n}"
+            },
+            {
+              "name": "409 Conflict",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "409",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"A problem with a similar title already exists\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});",
+                  "if (pm.response.code === 201) {",
+                  "  const json = pm.response.json();",
+                  "  if (json.data?.id) pm.collectionVariables.set('problemId', json.data.id);",
+                  "  if (json.data?.slug) pm.collectionVariables.set('problemSlug', json.data.slug);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update Problem (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"difficulty\": \"MEDIUM\",\n  \"tags\": [\n    \"Array\",\n    \"Hash Table\",\n    \"Sorting\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/problems/{{problemId}}",
+            "description": "Update an existing problem. **Requires ADMIN role.** All fields are optional.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"665a1b2c3d4e5f6789012345\",\n    \"title\": \"Two Sum\",\n    \"slug\": \"two-sum\",\n    \"difficulty\": \"MEDIUM\",\n    \"tags\": [\n      \"Array\",\n      \"Hash Table\",\n      \"Sorting\"\n    ]\n  }\n}"
+            },
+            {
+              "name": "403 Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "403",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Insufficient permissions\"\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "404",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Problem not found\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete Problem (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/problems/{{problemId}}",
+            "description": "Delete a problem permanently. **Requires ADMIN role.**",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"message\": \"Problem deleted successfully\"\n}"
+            },
+            {
+              "name": "403 Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "403",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Insufficient permissions\"\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "404",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Problem not found\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "4. Tags",
+      "description": "Problem tag management. GET is implemented; CRUD endpoints are planned.",
+      "item": [
+        {
+          "name": "Get All Tags",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/tags",
+            "description": "List all available problem tags. Tags are seeded on server startup.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": \"665a1b2c3d4e5f6789012350\",\n      \"name\": \"Array\",\n      \"slug\": \"array\"\n    },\n    {\n      \"id\": \"665a1b2c3d4e5f6789012351\",\n      \"name\": \"Dynamic Programming\",\n      \"slug\": \"dynamic-programming\"\n    }\n  ]\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});",
+                  "const tags = pm.response.json().data; if (tags?.[0]?.id) pm.collectionVariables.set('tagId', tags[0].id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Tag",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Backtracking\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/tags",
+            "description": "**Planned endpoint** — Create a new tag. **Requires ADMIN role.**\n\n> Not yet implemented in MVP.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "201",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"665a1b2c3d4e5f6789012352\",\n    \"name\": \"Backtracking\",\n    \"slug\": \"backtracking\"\n  }\n}"
+            },
+            {
+              "name": "403 Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "403",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Insufficient permissions\"\n}"
+            },
+            {
+              "name": "409 Conflict",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "409",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Tag already exists\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});",
+                  "if (pm.response.code === 201) {",
+                  "  const json = pm.response.json();",
+                  "  if (json.data?.id) pm.collectionVariables.set('tagId', json.data.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update Tag",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Backtracking & Recursion\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/tags/{{tagId}}",
+            "description": "**Planned endpoint** — Update tag name. **Requires ADMIN role.**\n\n> Not yet implemented in MVP.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"{{tagId}}\",\n    \"name\": \"Backtracking & Recursion\",\n    \"slug\": \"backtracking-recursion\"\n  }\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "404",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Tag not found\"\n}"
+            },
+            {
+              "name": "403 Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "403",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Insufficient permissions\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete Tag",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/tags/{{tagId}}",
+            "description": "**Planned endpoint** — Delete a tag. **Requires ADMIN role.**\n\n> Not yet implemented in MVP.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"message\": \"Tag deleted successfully\"\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "404",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Tag not found\"\n}"
+            },
+            {
+              "name": "403 Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "403",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Insufficient permissions\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "5. Submissions",
+      "description": "C++ code execution via CodeBox (Judge0). **Run** = visible test cases (sync). **Submit** = all test cases (async worker).",
+      "item": [
+        {
+          "name": "Run Code (Public Test Cases)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"problemId\": \"{{problemSlug}}\",\n  \"language\": \"cpp\",\n  \"code\": \"#include <bits/stdc++.h>\\nusing namespace std;\\n\\nint main() {\\n    ios::sync_with_stdio(false);\\n    cin.tie(nullptr);\\n    int n;\\n    cin >> n;\\n    long long sum = 0;\\n    for (int i = 0; i < n; i++) {\\n        int x;\\n        cin >> x;\\n        sum += x;\\n    }\\n    cout << sum;\\n    return 0;\\n}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/submissions/run",
+            "description": "Run C++ code against **visible test cases only** (sync). For Monaco editor \"Run\" button.\n\n- Uses Judge0 `POST /submissions?wait=true` with `expected_output`\n- Language: C++ only (`language_id: 54`)\n- `problemId` accepts ObjectId or slug\n- Code must be a complete program with `main()`",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"mode\": \"run\",\n    \"language\": \"cpp\",\n    \"languageId\": 54,\n    \"status\": \"ACCEPTED\",\n    \"passedCount\": 3,\n    \"totalCount\": 3,\n    \"runtime\": 12,\n    \"memory\": 3200,\n    \"testResults\": [\n      {\n        \"input\": \"3\\\\n1 2 3\",\n        \"expectedOutput\": \"6\",\n        \"actualOutput\": \"6\",\n        \"passed\": true,\n        \"runtime\": 10,\n        \"memory\": 3000,\n        \"status\": \"Accepted\",\n        \"isPublic\": true\n      }\n    ]\n  }\n}"
+            },
+            {
+              "name": "401 Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "401",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Access token required\"\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "404",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Problem not found\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Submit Code (All Test Cases)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"problemId\": \"{{problemSlug}}\",\n  \"language\": \"cpp\",\n  \"code\": \"#include <bits/stdc++.h>\\nusing namespace std;\\n\\nint main() {\\n    ios::sync_with_stdio(false);\\n    cin.tie(nullptr);\\n    int n;\\n    cin >> n;\\n    long long sum = 0;\\n    for (int i = 0; i < n; i++) {\\n        int x;\\n        cin >> x;\\n        sum += x;\\n    }\\n    cout << sum;\\n    return 0;\\n}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/submissions",
+            "description": "Submit C++ for **full judging** (visible + hidden test cases). Async via Redis worker — poll **Get Submission**.\n\nRequires `npm run dev:worker` running.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "201",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"665a1b2c3d4e5f6789012346\",\n    \"status\": \"PENDING\",\n    \"language\": \"cpp\",\n    \"languageId\": 54,\n    \"createdAt\": \"2026-07-07T14:30:00.000Z\"\n  }\n}"
+            },
+            {
+              "name": "401 Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "401",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Access token required\"\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "404",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Problem not found\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});",
+                  "if (pm.response.code === 201) {",
+                  "  const json = pm.response.json();",
+                  "  if (json.data?.id) pm.collectionVariables.set('submissionId', json.data.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Submission",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/submissions/{{submissionId}}",
+            "description": "Get submission details including test results. Users can only view their own submissions (ADMIN can view all).",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"665a1b2c3d4e5f6789012346\",\n    \"status\": \"ACCEPTED\",\n    \"language\": \"cpp\",\n    \"sourceCode\": \"#include <bits/stdc++.h>\\nusing namespace std;\\n\\nint main() {\\n    ios::sync_with_stdio(false);\\n    cin.tie(nullptr);\\n    int n;\\n    cin >> n;\\n    long long sum = 0;\\n    for (int i = 0; i < n; i++) {\\n        int x;\\n        cin >> x;\\n        sum += x;\\n    }\\n    cout << sum;\\n    return 0;\\n}\",\n    \"runtime\": 68,\n    \"memory\": 42000,\n    \"testResults\": [\n      {\n        \"input\": \"3\\\\n1 2 3\",\n        \"expectedOutput\": \"6\",\n        \"actualOutput\": \"6\",\n        \"passed\": true,\n        \"runtime\": 34,\n        \"memory\": 21000\n      }\n    ],\n    \"createdAt\": \"2026-07-07T14:30:00.000Z\",\n    \"problem\": {\n      \"id\": \"6a4d1029aa8c1384b2a447a9\",\n      \"title\": \"Sum of Array Elements\",\n      \"slug\": \"sum-of-array-elements\",\n      \"difficulty\": \"EASY\"\n    }\n  }\n}"
+            },
+            {
+              "name": "403 Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "403",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"You can only view your own submissions\"\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "404",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Submission not found\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Submission History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/submissions/history?page=1&limit=20",
+            "description": "Paginated submission history for the authenticated user. Filter by `status` and `problemId`.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"submissions\": [\n      {\n        \"id\": \"665a1b2c3d4e5f6789012346\",\n        \"status\": \"ACCEPTED\",\n        \"language\": \"cpp\",\n        \"sourceCode\": \"...\",\n        \"runtime\": 68,\n        \"memory\": 42000,\n        \"testResults\": [],\n        \"createdAt\": \"2026-07-07T14:30:00.000Z\",\n        \"problem\": {\n          \"id\": \"6a4d1029aa8c1384b2a447a9\",\n          \"title\": \"Sum of Array Elements\",\n          \"slug\": \"sum-of-array-elements\",\n          \"difficulty\": \"EASY\"\n        }\n      }\n    ],\n    \"pagination\": {\n      \"page\": 1,\n      \"limit\": 20,\n      \"total\": 55,\n      \"totalPages\": 3\n    }\n  }\n}"
+            },
+            {
+              "name": "401 Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "401",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Access token required\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Latest Submission",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/submissions/history?problemId={{problemSlug}}&limit=1",
+            "description": "Get the most recent submission for a problem. Uses history endpoint with `limit=1` filter.\n\nPoll **Get Submission** after submit until status is not PENDING/RUNNING.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"submissions\": [\n      {\n        \"id\": \"665a1b2c3d4e5f6789012346\",\n        \"status\": \"ACCEPTED\",\n        \"language\": \"cpp\",\n        \"runtime\": 68,\n        \"memory\": 42000,\n        \"createdAt\": \"2026-07-07T14:30:00.000Z\",\n        \"problem\": {\n          \"id\": \"6a4d1029aa8c1384b2a447a9\",\n          \"title\": \"Sum of Array Elements\",\n          \"slug\": \"sum-of-array-elements\",\n          \"difficulty\": \"EASY\"\n        }\n      }\n    ],\n    \"pagination\": {\n      \"page\": 1,\n      \"limit\": 1,\n      \"total\": 12,\n      \"totalPages\": 12\n    }\n  }\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Response has success true', function () {",
+                  "  pm.expect(pm.response.json().success).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "6. Health",
+      "description": "Service health check (no /api prefix).",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:3000/health",
+            "description": "Check if the API server is running. Uses root URL (not `baseUrl`).",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": "{{baseUrl}}"
+              },
+              "status": "200",
+              "code": "OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"status\": \"ok\",\n  \"service\": \"codearena-api\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
