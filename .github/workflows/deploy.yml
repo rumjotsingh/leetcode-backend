@@ -1,0 +1,57 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: SSH deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: 22
+          script_stop: true
+          command_timeout: 30m
+          script: |
+            set -e
+            APP_DIR="${{ secrets.VPS_APP_DIR }}"
+
+            # Clone on first deploy, otherwise pull latest
+            if [ ! -d "$APP_DIR/.git" ]; then
+              echo "==> First deploy: cloning repository"
+              git clone https://github.com/rumjotsingh/leetcode-backend.git "$APP_DIR"
+            fi
+
+            cd "$APP_DIR"
+
+            echo "==> Pulling latest code"
+            git fetch --all
+            git reset --hard origin/main
+
+            echo "==> Building and starting containers"
+            docker compose up -d --build --remove-orphans
+
+            echo "==> Pruning old images"
+            docker image prune -f
+
+            echo "==> Container status"
+            docker compose ps
+
+            echo "==> Health check (inside backend container)"
+            sleep 12
+            docker compose exec -T leetcode-backend \
+              node -e "fetch('http://127.0.0.1:8080/health').then(r=>r.text()).then(t=>{console.log(t);process.exit(0)}).catch(e=>{console.error(e.message);process.exit(1)})" \
+              || echo "WARN: health check failed (backend may still be starting)"
