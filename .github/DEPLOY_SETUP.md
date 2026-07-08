@@ -10,7 +10,7 @@ Repo → **Settings → Secrets and variables → Actions → New repository sec
 |---|---|
 | `VPS_HOST` | `40.81.246.41` |
 | `VPS_USER` | `azureuser` |
-| `VPS_APP_DIR` | `/home/azureuser/leetcode-backend` |
+| `VPS_APP_DIR` | `/home/azureuser/leetcode/leetcode-backend` |
 | `VPS_SSH_KEY` | Full contents of `rumjot.pem` (see below) |
 
 ### Get the SSH key contents
@@ -72,7 +72,7 @@ Watch progress in the **Actions** tab, then:
 
 ```bash
 ssh -i /Users/rumjotsingh/Downloads/rumjot.pem azureuser@40.81.246.41 \
-  "cd /home/azureuser/leetcode-backend && docker compose ps"
+  "cd /home/azureuser/leetcode/leetcode-backend && docker compose ps"
 
 curl https://leetcode.rumjot.me/health
 ```

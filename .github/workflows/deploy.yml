@@ -32,6 +32,7 @@ jobs:
             # Clone on first deploy, otherwise pull latest
             if [ ! -d "$APP_DIR/.git" ]; then
               echo "==> First deploy: cloning repository"
+              mkdir -p "$(dirname "$APP_DIR")"
               git clone https://github.com/rumjotsingh/leetcode-backend.git "$APP_DIR"
             fi
 

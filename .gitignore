@@ -7,3 +7,10 @@ dist/
 coverage/
 .idea/
 .vscode/
+
+# SSH / deploy keys (never commit)
+private
+private.pub
+*.pem
+id_rsa
+id_rsa.pub
