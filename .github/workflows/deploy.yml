@@ -38,6 +38,9 @@ jobs:
 
             cd "$APP_DIR"
 
+            echo "==> Ensure shared Caddy Docker network exists"
+            docker network inspect caddy >/dev/null 2>&1 || docker network create caddy
+
             echo "==> Pulling latest code"
             git fetch --all
             git reset --hard origin/main

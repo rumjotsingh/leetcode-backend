@@ -1,24 +1,4 @@
 services:
-  caddy:
-    image: caddy:2-alpine
-    container_name: caddy
-    restart: always
-    ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
-    environment:
-      ACME_EMAIL: ${ACME_EMAIL}
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy_data:/data
-      - caddy_config:/config
-    depends_on:
-      leetcode-backend:
-        condition: service_healthy
-    networks:
-      - app
-
   leetcode-backend:
     build: .
     container_name: leetcode-backend
@@ -49,6 +29,7 @@ services:
       start_period: 45s
     networks:
       - app
+      - caddy
 
   leetcode-worker:
     build: .
@@ -86,10 +67,11 @@ services:
       - app
 
 volumes:
-  caddy_data:
-  caddy_config:
   redis_data:
 
 networks:
   app:
     driver: bridge
+  caddy:
+    external: true
+    name: caddy

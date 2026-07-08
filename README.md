@@ -312,20 +312,27 @@ The modular structure supports future features without major refactoring:
 
 ## Production Deployment
 
-```bash
-cp .env.example .env          # fill in secrets
-docker compose up -d --build  # starts caddy + backend + worker + redis
+Uses your **existing VPS Caddy** (ports 80/443). This stack only runs backend + worker + redis.
 
-docker ps
+```bash
+# 1. Ensure shared Docker network exists (once on VPS)
+docker network create caddy
+
+# 2. Add leetcode.rumjot.me block from caddy-snippet.caddy to your main Caddyfile
+# 3. Reload your main Caddy container
+
+cp .env.example .env          # fill in secrets
+docker compose up -d --build
+
+docker compose ps
 curl https://leetcode.rumjot.me/health
 ```
 
-**Files:** `Dockerfile` · `docker-compose.yml` · `Caddyfile`
+**Files:** `Dockerfile` · `docker-compose.yml` · `caddy-snippet.caddy` (paste into main Caddyfile)
 
 | Service | Role |
 |---|---|
-| `caddy` | HTTPS on ports 80/443 |
-| `leetcode-backend` | API (internal port 3000 only) |
+| `leetcode-backend` | API on internal port 8080 (reachable by main Caddy) |
 | `leetcode-worker` | Async submission judge |
 | `redis` | Queue & cache |
 

@@ -79,5 +79,7 @@ curl https://leetcode.rumjot.me/health
 
 ## Notes
 
-- Backend listens on **8080 internally** (not exposed) — Caddy proxies it on 80/443.
-- If port 80 is taken by another app (e.g. CodeBox), those two must share one Caddy or run on separate hosts.
+- This project does **not** run Caddy. Use your existing VPS Caddy on ports 80/443.
+- Add the site block from `caddy-snippet.caddy` to your main Caddyfile.
+- Both stacks must share the `caddy` Docker network: `docker network create caddy`
+- Backend listens on **8080** internally — main Caddy proxies `leetcode.rumjot.me` → `leetcode-backend:8080`

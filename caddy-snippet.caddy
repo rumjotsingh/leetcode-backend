@@ -1,13 +1,4 @@
-{
-	email {$ACME_EMAIL}
-	admin off
-
-	log {
-		output stdout
-		format json
-		level INFO
-	}
-}
+# Add this block to your main VPS Caddyfile (the one already running on ports 80/443)
 
 leetcode.rumjot.me {
 	encode gzip zstd
@@ -37,8 +28,18 @@ leetcode.rumjot.me {
 		health_interval  30s
 		health_timeout   5s
 		health_status    2xx
-		fail_duration    30s
-		max_fails        3
-		unhealthy_status 503
 	}
 }
+
+# Your main Caddy container must be on the same Docker network:
+#   docker network create caddy   # once, if not exists
+#   # in your main Caddy docker-compose.yml:
+#   networks:
+#     - caddy
+#   networks:
+#     caddy:
+#       external: true
+#       name: caddy
+#
+# Reload Caddy after adding this block:
+#   docker exec <caddy-container> caddy reload --config /etc/caddy/Caddyfile
