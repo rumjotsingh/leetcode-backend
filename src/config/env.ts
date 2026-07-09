@@ -14,7 +14,9 @@ const envSchema = z.object({
   JWT_REFRESH_EXPIRES_IN: z.string().default('7d'),
   EXECUTION_API_URL: z.string().url().default('https://api.rumjot.me'),
   EXECUTION_API_TOKEN: z.string().min(1),
-  CORS_ORIGIN: z.string().default('http://localhost:3001'),
+  CORS_ORIGIN: z
+    .string()
+    .default('http://localhost:3000,http://localhost:3001,https://leetcode-frontend-delta.vercel.app'),
   CACHE_TTL_PROBLEMS: z.coerce.number().default(300),
   CACHE_TTL_PROBLEM_DETAIL: z.coerce.number().default(600),
   CACHE_TTL_USER_PROFILE: z.coerce.number().default(300),
@@ -29,5 +31,9 @@ if (!parsed.success) {
 }
 
 export const env = parsed.data;
+
+export const corsOrigins = env.CORS_ORIGIN.split(',')
+  .map((origin) => origin.trim().replace(/\/$/, ''))
+  .filter(Boolean);
 
 export const isProduction = env.NODE_ENV === 'production';
