@@ -41,9 +41,12 @@ app.use(express.json({ limit: '1mb' }));
 app.use(cookieParser());
 app.use(globalRateLimiter);
 
-app.get('/api/health', (_req, res) => {
+const healthHandler = (_req: express.Request, res: express.Response) => {
   res.json({ status: 'ok', service: 'codearena-api' });
-});
+};
+
+app.get('/health', healthHandler);
+app.get('/api/health', healthHandler);
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
