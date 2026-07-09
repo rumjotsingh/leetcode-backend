@@ -18,6 +18,7 @@ const envSchema = z.object({
   CACHE_TTL_PROBLEMS: z.coerce.number().default(300),
   CACHE_TTL_PROBLEM_DETAIL: z.coerce.number().default(600),
   CACHE_TTL_USER_PROFILE: z.coerce.number().default(300),
+  GOOGLE_CLIENT_ID: z.string().optional(),
 });
 
 const parsed = envSchema.safeParse(process.env);

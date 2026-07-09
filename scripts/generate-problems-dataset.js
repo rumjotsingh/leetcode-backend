@@ -5,6 +5,120 @@ const { ARCHETYPES, resolveArchetype, generateHints } = require('./problem-bank'
 
 const CPP_HEADER = `#include <bits/stdc++.h>\nusing namespace std;\n\n`;
 
+function parseCppSignature(signature) {
+  const match = signature.match(/^(.+?)\s+(\w+)\((.*)\)$/);
+  if (!match) throw new Error(`Invalid C++ signature: ${signature}`);
+
+  const [, returnType, name, rawParams] = match;
+  const params = rawParams.trim()
+    ? splitCppParams(rawParams).map((part) => {
+        const trimmed = part.trim();
+        const paramMatch = trimmed.match(/^(.+?)\s*(&?)\s*(\w+)$/);
+        if (!paramMatch) throw new Error(`Invalid C++ parameter: ${trimmed}`);
+        const [, typePart, ref, paramName] = paramMatch;
+        return {
+          type: `${typePart.trim()}${ref ? '&' : ''}`,
+          baseType: typePart.trim(),
+          name: paramName,
+        };
+      })
+    : [];
+
+  return { returnType: returnType.trim(), name, params };
+}
+
+function splitCppParams(rawParams) {
+  const params = [];
+  let depth = 0;
+  let current = '';
+
+  for (const ch of rawParams) {
+    if (ch === '<') depth++;
+    if (ch === '>') depth--;
+
+    if (ch === ',' && depth === 0) {
+      params.push(current.trim());
+      current = '';
+      continue;
+    }
+
+    current += ch;
+  }
+
+  if (current.trim()) params.push(current.trim());
+  return params;
+}
+
+function buildReadLines(params) {
+  const lines = [];
+  const names = new Set(params.map((p) => p.name));
+
+  for (const param of params) {
+    if (param.baseType.startsWith('vector<pair<int,int>>')) {
+      const sizeName = names.has('m') ? 'm' : 'n';
+      lines.push(`    vector<pair<int, int>> ${param.name}(${sizeName});`);
+      lines.push(`    for (auto& edge : ${param.name}) cin >> edge.first >> edge.second;`);
+      continue;
+    }
+
+    const vectorMatch = param.baseType.match(/^vector<(.+)>$/);
+    if (vectorMatch) {
+      const valueType = vectorMatch[1].trim();
+      lines.push(`    vector<${valueType}> ${param.name}(n);`);
+      lines.push(`    for (${valueType}& x : ${param.name}) cin >> x;`);
+      continue;
+    }
+
+    lines.push(`    ${param.baseType} ${param.name};`);
+    lines.push(`    cin >> ${param.name};`);
+  }
+
+  return lines;
+}
+
+function buildPrintLines(returnType) {
+  if (returnType.startsWith('vector<')) {
+    return [
+      '    for (int i = 0; i < (int)ans.size(); i++) {',
+      '        if (i) cout << " ";',
+      '        cout << ans[i];',
+      '    }',
+      '    cout << endl;',
+    ];
+  }
+
+  if (returnType.startsWith('pair<')) {
+    return ['    cout << ans.first << " " << ans.second << endl;'];
+  }
+
+  return ['    cout << ans << endl;'];
+}
+
+function buildPlaceholderBody(returnType) {
+  let defaultValue = '0';
+
+  if (returnType.startsWith('vector<')) {
+    defaultValue = '{}';
+  } else if (returnType.startsWith('pair<')) {
+    defaultValue = '{-1, -1}';
+  } else if (returnType === 'string') {
+    defaultValue = '""';
+  }
+
+  return `        // Write your code here.\n        return ${defaultValue};`;
+}
+
+function buildStarterCode(arch) {
+  const signature = parseCppSignature(arch.cppSignature);
+  const methodParams = signature.params.map((p) => `${p.baseType}${p.type.endsWith('&') ? '&' : ''} ${p.name}`).join(', ');
+  const argNames = signature.params.map((p) => p.name).join(', ');
+  const readLines = buildReadLines(signature.params).join('\n');
+  const printLines = buildPrintLines(signature.returnType).join('\n');
+  const body = buildPlaceholderBody(signature.returnType);
+
+  return `${CPP_HEADER}class Solution {\npublic:\n    ${signature.returnType} ${signature.name}(${methodParams}) {\n${body}\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n${readLines}\n\n    Solution obj;\n    auto ans = obj.${signature.name}(${argNames});\n\n${printLines}\n\n    return 0;\n}`;
+}
+
 function slugify(title) {
   return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
@@ -62,7 +176,7 @@ function buildFromArchetype(title, difficulty, tags, archetypeKey, index) {
   const arch = ARCHETYPES[archetypeKey];
   if (!arch) throw new Error(`Unknown archetype: ${archetypeKey} for ${title}`);
 
-  const starter = `${CPP_HEADER}${arch.cppSignature} {\n${arch.cppBody}\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}`;
+  const starter = buildStarterCode(arch);
 
   return {
     title,

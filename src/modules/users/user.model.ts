@@ -1,11 +1,15 @@
 import mongoose, { Document, Schema, Types } from 'mongoose';
 import { Role, ROLES } from '../../config/constants';
 
+export type AuthProvider = 'local' | 'google';
+
 export interface IUser extends Document {
   _id: Types.ObjectId;
   username: string;
   email: string;
   passwordHash: string;
+  googleId?: string;
+  authProvider: AuthProvider;
   avatar: string;
   role: Role;
   solvedProblems: Types.ObjectId[];
@@ -31,7 +35,9 @@ const userSchema = new Schema<IUser>(
       lowercase: true,
       trim: true,
     },
-    passwordHash: { type: String, required: true, select: false },
+    passwordHash: { type: String, default: '', select: false },
+    googleId: { type: String, sparse: true, unique: true },
+    authProvider: { type: String, enum: ['local', 'google'], default: 'local' },
     avatar: { type: String, default: '' },
     role: { type: String, enum: Object.values(ROLES), default: ROLES.USER },
     solvedProblems: [{ type: Schema.Types.ObjectId, ref: 'Problem' }],

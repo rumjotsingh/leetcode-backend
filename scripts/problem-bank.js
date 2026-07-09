@@ -418,7 +418,7 @@ const ARCHETYPES = {
       { input: '3 1\n7 1 3', output: '7', explanation: 'K=1 picks max element.' },
     ],
     visibleTestCases: [
-      { input: '6 2\n1 3 2 5 4 6', expectedOutput: '9' },
+      { input: '6 2\n1 3 2 5 4 6', expectedOutput: '10' },
       { input: '5 5\n1 2 3 4 5', expectedOutput: '15' },
       { input: '4 3\n10 1 1 10', expectedOutput: '12' },
     ],

@@ -36,7 +36,7 @@
         "No special data structure is needed — iterate and sum."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, vector<long long>& a) {\n    long long s = 0; for (auto x : a) s += x; return s;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, vector<long long>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<long long> a(n);\n    for (long long& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -152,7 +152,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nstring solve(string s) {\n    reverse(s.begin(), s.end()); return s;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string solve(string s) {\n        // Write your code here.\n        return \"\";\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string s;\n    cin >> s;\n\n    Solution obj;\n    auto ans = obj.solve(s);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -269,7 +269,7 @@
         "Update the answer whenever you see a larger value."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, vector<int>& a) {\n    return *max_element(a.begin(), a.end());\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -385,7 +385,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(string s) {\n    int c = 0; for (char ch : s) if (string(\"aeiou\").find(ch) != string::npos) c++; return c;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(string s) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string s;\n    cin >> s;\n\n    Solution obj;\n    auto ans = obj.solve(s);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -503,7 +503,7 @@
         "Check if (target - current) already exists in the map before inserting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\npair<int,int> solve(int n, int target, vector<int>& nums) {\n    unordered_map<int,int> mp;\n    for (int i = 0; i < n; i++) {\n        int need = target - nums[i];\n        if (mp.count(need)) return {mp[need], i};\n        mp[nums[i]] = i;\n    }\n    return {-1,-1};\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    pair<int,int> solve(int n, int target, vector<int>& nums) {\n        // Write your code here.\n        return {-1, -1};\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int target;\n    cin >> target;\n    vector<int> nums(n);\n    for (int& x : nums) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, target, nums);\n\n    cout << ans.first << \" \" << ans.second << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -619,7 +619,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(string s) {\n    int l = 0, r = (int)s.size()-1;\n    while (l < r) if (s[l++] != s[r--]) return 0;\n    return 1;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(string s) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string s;\n    cin >> s;\n\n    Solution obj;\n    auto ans = obj.solve(s);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -735,7 +735,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n) {\n    long long r = 1; for (int i = 2; i <= n; i++) r *= i; return r;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    Solution obj;\n    auto ans = obj.solve(n);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -851,7 +851,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int a, int b) {\n    while (b) { int t = a % b; a = b; b = t; } return a;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int a, int b) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int a;\n    cin >> a;\n    int b;\n    cin >> b;\n\n    Solution obj;\n    auto ans = obj.solve(a, b);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -968,7 +968,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int x) {\n    int c = 0; while (x) { c += x & 1; x >>= 1; } return c;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int x) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int x;\n    cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(x);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -1087,7 +1087,7 @@
         "No special data structure is needed — iterate and sum."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, vector<long long>& a) {\n    long long s = 0; for (auto x : a) s += x; return s;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, vector<long long>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<long long> a(n);\n    for (long long& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -1204,7 +1204,7 @@
         "Compare each element with the current minimum and update if smaller."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, vector<int>& a) {\n    return *min_element(a.begin(), a.end());\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -1322,7 +1322,7 @@
         "When updating the maximum, remember to update second-largest accordingly."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, vector<int>& a) {\n    sort(a.rbegin(), a.rend());\n    return a[1];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -1439,7 +1439,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, vector<int>& a) {\n    if (n == 0) return 0;\n    int k = 1;\n    for (int i = 1; i < n; i++) if (a[i] != a[i-1]) a[k++] = a[i];\n    return k;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -1556,7 +1556,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nvector<int> solve(int n, int k, vector<int>& a) {\n    k %= n;\n    rotate(a.begin(), a.begin() + k, a.end());\n    return a;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> solve(int n, int k, vector<int>& a) {\n        // Write your code here.\n        return {};\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int k;\n    cin >> k;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, k, a);\n\n    for (int i = 0; i < (int)ans.size(); i++) {\n        if (i) cout << \" \";\n        cout << ans[i];\n    }\n    cout << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -1673,7 +1673,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n) {\n    if (n < 2) return 0;\n    for (int d = 2; 1LL * d * d <= n; d++) if (n % d == 0) return 0;\n    return 1;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    Solution obj;\n    auto ans = obj.solve(n);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -1789,7 +1789,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(long long n) {\n    int s = 0; while (n) { s += n % 10; n /= 10; } return s;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(long long n) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    long long n;\n    cin >> n;\n\n    Solution obj;\n    auto ans = obj.solve(n);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -1905,7 +1905,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int y) {\n    return (y % 400 == 0 || (y % 4 == 0 && y % 100 != 0)) ? 1 : 0;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int y) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int y;\n    cin >> y;\n\n    Solution obj;\n    auto ans = obj.solve(y);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -2021,7 +2021,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(long long a, long long b) {\n    return llabs(a - b);\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(long long a, long long b) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    long long a;\n    cin >> a;\n    long long b;\n    cin >> b;\n\n    Solution obj;\n    auto ans = obj.solve(a, b);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -2137,7 +2137,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(long long a, long long b) {\n    return llabs(a - b);\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(long long a, long long b) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    long long a;\n    cin >> a;\n    long long b;\n    cin >> b;\n\n    Solution obj;\n    auto ans = obj.solve(a, b);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -2253,7 +2253,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(string s) {\n    int l = 0, r = (int)s.size()-1;\n    while (l < r) if (s[l++] != s[r--]) return 0;\n    return 1;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(string s) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string s;\n    cin >> s;\n\n    Solution obj;\n    auto ans = obj.solve(s);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -2370,7 +2370,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, vector<int>& a) {\n    return (int)unordered_set<int>(a.begin(), a.end()).size();\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -2486,7 +2486,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(string s) {\n    int c = 0; for (char ch : s) if (string(\"aeiou\").find(ch) != string::npos) c++; return c;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(string s) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string s;\n    cin >> s;\n\n    Solution obj;\n    auto ans = obj.solve(s);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -2602,7 +2602,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, vector<int>& a) {\n    return (int)unordered_set<int>(a.begin(), a.end()).size();\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -2720,7 +2720,7 @@
         "No special data structure is needed — iterate and sum."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, vector<long long>& a) {\n    long long s = 0; for (auto x : a) s += x; return s;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, vector<long long>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<long long> a(n);\n    for (long long& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -2837,7 +2837,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nvector<int> solve(int n, int k, vector<int>& a) {\n    k %= n;\n    rotate(a.begin(), a.begin() + k, a.end());\n    return a;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> solve(int n, int k, vector<int>& a) {\n        // Write your code here.\n        return {};\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int k;\n    cin >> k;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, k, a);\n\n    for (int i = 0; i < (int)ans.size(); i++) {\n        if (i) cout << \" \";\n        cout << ans[i];\n    }\n    cout << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -2953,7 +2953,7 @@
         "On a closing bracket, check it matches the stack top before popping."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(string s) {\n    stack<char> st;\n    unordered_map<char,char> p = {{')','('},{']','['},{'}','{'}};\n    for (char c : s) {\n        if (c=='('||c=='['||c=='{') st.push(c);\n        else { if (st.empty()||st.top()!=p[c]) return 0; st.pop(); }\n    }\n    return st.empty()?1:0;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(string s) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string s;\n    cin >> s;\n\n    Solution obj;\n    auto ans = obj.solve(s);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -3070,7 +3070,7 @@
         "Update the answer whenever you see a larger value."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, vector<int>& a) {\n    return *max_element(a.begin(), a.end());\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -3188,7 +3188,7 @@
         "No special data structure is needed — iterate and sum."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, vector<long long>& a) {\n    long long s = 0; for (auto x : a) s += x; return s;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, vector<long long>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<long long> a(n);\n    for (long long& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -3306,7 +3306,7 @@
         "Eliminate half the search space based on whether the middle is too small or too large."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int target, vector<int>& a) {\n    int l = 0, r = n - 1;\n    while (l <= r) { int m = (l + r) / 2; if (a[m] == target) return m; if (a[m] < target) l = m + 1; else r = m - 1; } return -1;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int target, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int target;\n    cin >> target;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, target, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -3424,7 +3424,7 @@
         "Eliminate half the search space based on whether the middle is too small or too large."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int target, vector<int>& a) {\n    int l = 0, r = n - 1;\n    while (l <= r) { int m = (l + r) / 2; if (a[m] == target) return m; if (a[m] < target) l = m + 1; else r = m - 1; } return -1;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int target, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int target;\n    cin >> target;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, target, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -3541,7 +3541,7 @@
         "Update the answer whenever you see a larger value."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, vector<int>& a) {\n    return *max_element(a.begin(), a.end());\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -3657,7 +3657,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int x) {\n    int c = 0; while (x) { c += x & 1; x >>= 1; } return c;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int x) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int x;\n    cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(x);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -3773,7 +3773,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int x) {\n    int c = 0; while (x) { c += x & 1; x >>= 1; } return c;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int x) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int x;\n    cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(x);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -3890,7 +3890,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(long long l, long long r) {\n    return (r - l + 1) * (l + r) / 2;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(long long l, long long r) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    long long l;\n    cin >> l;\n    long long r;\n    cin >> r;\n\n    Solution obj;\n    auto ans = obj.solve(l, r);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -4006,7 +4006,7 @@
         "Use 64-bit integers if N can be moderately large."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n) {\n    if (n <= 1) return n;\n    long long a = 0, b = 1;\n    for (int i = 2; i <= n; i++) { long long c = a + b; a = b; b = c; } return b;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    Solution obj;\n    auto ans = obj.solve(n);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -4124,7 +4124,7 @@
         "Check if (target - current) already exists in the map before inserting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\npair<int,int> solve(int n, int target, vector<int>& nums) {\n    unordered_map<int,int> mp;\n    for (int i = 0; i < n; i++) {\n        int need = target - nums[i];\n        if (mp.count(need)) return {mp[need], i};\n        mp[nums[i]] = i;\n    }\n    return {-1,-1};\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    pair<int,int> solve(int n, int target, vector<int>& nums) {\n        // Write your code here.\n        return {-1, -1};\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int target;\n    cin >> target;\n    vector<int> nums(n);\n    for (int& x : nums) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, target, nums);\n\n    cout << ans.first << \" \" << ans.second << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -4241,7 +4241,7 @@
         "Compare each element with the current minimum and update if smaller."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, vector<int>& a) {\n    return *min_element(a.begin(), a.end());\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -4357,12 +4357,12 @@
         "Track the maximum window sum seen during the slide."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, int k, vector<int>& a) {\n    long long cur = 0, best = LLONG_MIN;\n    for (int i = 0; i < n; i++) { cur += a[i]; if (i >= k) cur -= a[i-k]; if (i >= k-1) best = max(best, cur); } return best;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, int k, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int k;\n    cin >> k;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, k, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
           "input": "6 2\n1 3 2 5 4 6",
-          "expectedOutput": "9"
+          "expectedOutput": "10"
         },
         {
           "input": "5 5\n1 2 3 4 5",
@@ -4473,7 +4473,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(string s) {\n    int c = 0; for (char ch : s) if (string(\"aeiou\").find(ch) != string::npos) c++; return c;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(string s) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string s;\n    cin >> s;\n\n    Solution obj;\n    auto ans = obj.solve(s);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -4590,7 +4590,7 @@
         "Update the answer whenever you see a larger value."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, vector<int>& a) {\n    return *max_element(a.begin(), a.end());\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -4710,7 +4710,7 @@
         "No special data structure is needed — iterate and sum."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, vector<long long>& a) {\n    long long s = 0; for (auto x : a) s += x; return s;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, vector<long long>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<long long> a(n);\n    for (long long& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -4829,7 +4829,7 @@
         "No special data structure is needed — iterate and sum."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, vector<long long>& a) {\n    long long s = 0; for (auto x : a) s += x; return s;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, vector<long long>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<long long> a(n);\n    for (long long& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -4947,7 +4947,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nvector<int> solve(int n, int k, vector<int>& a) {\n    k %= n;\n    rotate(a.begin(), a.begin() + k, a.end());\n    return a;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> solve(int n, int k, vector<int>& a) {\n        // Write your code here.\n        return {};\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int k;\n    cin >> k;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, k, a);\n\n    for (int i = 0; i < (int)ans.size(); i++) {\n        if (i) cout << \" \";\n        cout << ans[i];\n    }\n    cout << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -5066,7 +5066,7 @@
         "No special data structure is needed — iterate and sum."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, vector<long long>& a) {\n    long long s = 0; for (auto x : a) s += x; return s;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, vector<long long>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<long long> a(n);\n    for (long long& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -5184,7 +5184,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nvector<int> solve(int n, int k, vector<int>& a) {\n    k %= n;\n    rotate(a.begin(), a.begin() + k, a.end());\n    return a;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> solve(int n, int k, vector<int>& a) {\n        // Write your code here.\n        return {};\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int k;\n    cin >> k;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, k, a);\n\n    for (int i = 0; i < (int)ans.size(); i++) {\n        if (i) cout << \" \";\n        cout << ans[i];\n    }\n    cout << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -5302,7 +5302,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nvector<int> solve(int n, int k, vector<int>& a) {\n    k %= n;\n    rotate(a.begin(), a.begin() + k, a.end());\n    return a;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> solve(int n, int k, vector<int>& a) {\n        // Write your code here.\n        return {};\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int k;\n    cin >> k;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, k, a);\n\n    for (int i = 0; i < (int)ans.size(); i++) {\n        if (i) cout << \" \";\n        cout << ans[i];\n    }\n    cout << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -5419,7 +5419,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, vector<int>& a) {\n    return (int)unordered_set<int>(a.begin(), a.end()).size();\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -5536,7 +5536,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, vector<int>& a) {\n    return (int)unordered_set<int>(a.begin(), a.end()).size();\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -5654,12 +5654,12 @@
         "Track the maximum window sum seen during the slide."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, int k, vector<int>& a) {\n    long long cur = 0, best = LLONG_MIN;\n    for (int i = 0; i < n; i++) { cur += a[i]; if (i >= k) cur -= a[i-k]; if (i >= k-1) best = max(best, cur); } return best;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, int k, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int k;\n    cin >> k;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, k, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
           "input": "6 2\n1 3 2 5 4 6",
-          "expectedOutput": "9"
+          "expectedOutput": "10"
         },
         {
           "input": "5 5\n1 2 3 4 5",
@@ -5774,7 +5774,7 @@
         "Check if (target - current) already exists in the map before inserting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\npair<int,int> solve(int n, int target, vector<int>& nums) {\n    unordered_map<int,int> mp;\n    for (int i = 0; i < n; i++) {\n        int need = target - nums[i];\n        if (mp.count(need)) return {mp[need], i};\n        mp[nums[i]] = i;\n    }\n    return {-1,-1};\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    pair<int,int> solve(int n, int target, vector<int>& nums) {\n        // Write your code here.\n        return {-1, -1};\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int target;\n    cin >> target;\n    vector<int> nums(n);\n    for (int& x : nums) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, target, nums);\n\n    cout << ans.first << \" \" << ans.second << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -5891,7 +5891,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, vector<int>& a) {\n    return (int)unordered_set<int>(a.begin(), a.end()).size();\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -6008,7 +6008,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int k, vector<int>& a) {\n    nth_element(a.begin(), a.begin()+k-1, a.end()); return a[k-1];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int k, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int k;\n    cin >> k;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, k, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -6127,7 +6127,7 @@
         "No special data structure is needed — iterate and sum."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, vector<long long>& a) {\n    long long s = 0; for (auto x : a) s += x; return s;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, vector<long long>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<long long> a(n);\n    for (long long& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -6244,12 +6244,12 @@
         "Track the maximum window sum seen during the slide."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, int k, vector<int>& a) {\n    long long cur = 0, best = LLONG_MIN;\n    for (int i = 0; i < n; i++) { cur += a[i]; if (i >= k) cur -= a[i-k]; if (i >= k-1) best = max(best, cur); } return best;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, int k, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int k;\n    cin >> k;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, k, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
           "input": "6 2\n1 3 2 5 4 6",
-          "expectedOutput": "9"
+          "expectedOutput": "10"
         },
         {
           "input": "5 5\n1 2 3 4 5",
@@ -6361,7 +6361,7 @@
         "Use 64-bit integers if N can be moderately large."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n) {\n    if (n <= 1) return n;\n    long long a = 0, b = 1;\n    for (int i = 2; i <= n; i++) { long long c = a + b; a = b; b = c; } return b;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    Solution obj;\n    auto ans = obj.solve(n);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -6480,7 +6480,7 @@
         "Initialize unreachable states with infinity except dp[0] = 0."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int amount, vector<int>& coins) {\n    vector<int> dp(amount+1, 1e9); dp[0]=0;\n    for (int x=1;x<=amount;x++) for (int c:coins) if (x>=c) dp[x]=min(dp[x],dp[x-c]+1);\n    return dp[amount]==1e9?-1:dp[amount];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int amount, vector<int>& coins) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int amount;\n    cin >> amount;\n    vector<int> coins(n);\n    for (int& x : coins) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, amount, coins);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -6597,12 +6597,12 @@
         "Track the maximum window sum seen during the slide."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, int k, vector<int>& a) {\n    long long cur = 0, best = LLONG_MIN;\n    for (int i = 0; i < n; i++) { cur += a[i]; if (i >= k) cur -= a[i-k]; if (i >= k-1) best = max(best, cur); } return best;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, int k, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int k;\n    cin >> k;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, k, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
           "input": "6 2\n1 3 2 5 4 6",
-          "expectedOutput": "9"
+          "expectedOutput": "10"
         },
         {
           "input": "5 5\n1 2 3 4 5",
@@ -6714,7 +6714,7 @@
         "Use 64-bit integers if N can be moderately large."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n) {\n    if (n <= 1) return n;\n    long long a = 0, b = 1;\n    for (int i = 2; i <= n; i++) { long long c = a + b; a = b; b = c; } return b;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    Solution obj;\n    auto ans = obj.solve(n);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -6831,7 +6831,7 @@
         "Use 64-bit integers if N can be moderately large."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n) {\n    if (n <= 1) return n;\n    long long a = 0, b = 1;\n    for (int i = 2; i <= n; i++) { long long c = a + b; a = b; b = c; } return b;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    Solution obj;\n    auto ans = obj.solve(n);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -6948,12 +6948,12 @@
         "Track the maximum window sum seen during the slide."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, int k, vector<int>& a) {\n    long long cur = 0, best = LLONG_MIN;\n    for (int i = 0; i < n; i++) { cur += a[i]; if (i >= k) cur -= a[i-k]; if (i >= k-1) best = max(best, cur); } return best;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, int k, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int k;\n    cin >> k;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, k, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
           "input": "6 2\n1 3 2 5 4 6",
-          "expectedOutput": "9"
+          "expectedOutput": "10"
         },
         {
           "input": "5 5\n1 2 3 4 5",
@@ -7068,7 +7068,7 @@
         "Initialize unreachable states with infinity except dp[0] = 0."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int amount, vector<int>& coins) {\n    vector<int> dp(amount+1, 1e9); dp[0]=0;\n    for (int x=1;x<=amount;x++) for (int c:coins) if (x>=c) dp[x]=min(dp[x],dp[x-c]+1);\n    return dp[amount]==1e9?-1:dp[amount];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int amount, vector<int>& coins) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int amount;\n    cin >> amount;\n    vector<int> coins(n);\n    for (int& x : coins) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, amount, coins);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -7187,7 +7187,7 @@
         "No special data structure is needed — iterate and sum."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, vector<long long>& a) {\n    long long s = 0; for (auto x : a) s += x; return s;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, vector<long long>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<long long> a(n);\n    for (long long& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -7304,7 +7304,7 @@
         "On a closing bracket, check it matches the stack top before popping."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(string s) {\n    stack<char> st;\n    unordered_map<char,char> p = {{')','('},{']','['},{'}','{'}};\n    for (char c : s) {\n        if (c=='('||c=='['||c=='{') st.push(c);\n        else { if (st.empty()||st.top()!=p[c]) return 0; st.pop(); }\n    }\n    return st.empty()?1:0;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(string s) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string s;\n    cin >> s;\n\n    Solution obj;\n    auto ans = obj.solve(s);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -7422,7 +7422,7 @@
         "Update the answer whenever you see a larger value."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, vector<int>& a) {\n    return *max_element(a.begin(), a.end());\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -7541,7 +7541,7 @@
         "Stop early if you reach the destination node."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n    vector<vector<int>> g(n);\n    for (auto [u,v]: edges) g[u].push_back(v);\n    vector<int> d(n,-1); queue<int> q; d[s]=0; q.push(s);\n    while(!q.empty()){int u=q.front();q.pop();for(int v:g[u])if(d[v]==-1){d[v]=d[u]+1;q.push(v);}}\n    return d[n-1];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int m;\n    cin >> m;\n    int s;\n    cin >> s;\n    vector<pair<int, int>> edges(m);\n    for (auto& edge : edges) cin >> edge.first >> edge.second;\n\n    Solution obj;\n    auto ans = obj.solve(n, m, s, edges);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -7660,7 +7660,7 @@
         "Stop early if you reach the destination node."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n    vector<vector<int>> g(n);\n    for (auto [u,v]: edges) g[u].push_back(v);\n    vector<int> d(n,-1); queue<int> q; d[s]=0; q.push(s);\n    while(!q.empty()){int u=q.front();q.pop();for(int v:g[u])if(d[v]==-1){d[v]=d[u]+1;q.push(v);}}\n    return d[n-1];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int m;\n    cin >> m;\n    int s;\n    cin >> s;\n    vector<pair<int, int>> edges(m);\n    for (auto& edge : edges) cin >> edge.first >> edge.second;\n\n    Solution obj;\n    auto ans = obj.solve(n, m, s, edges);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -7779,7 +7779,7 @@
         "Stop early if you reach the destination node."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n    vector<vector<int>> g(n);\n    for (auto [u,v]: edges) g[u].push_back(v);\n    vector<int> d(n,-1); queue<int> q; d[s]=0; q.push(s);\n    while(!q.empty()){int u=q.front();q.pop();for(int v:g[u])if(d[v]==-1){d[v]=d[u]+1;q.push(v);}}\n    return d[n-1];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int m;\n    cin >> m;\n    int s;\n    cin >> s;\n    vector<pair<int, int>> edges(m);\n    for (auto& edge : edges) cin >> edge.first >> edge.second;\n\n    Solution obj;\n    auto ans = obj.solve(n, m, s, edges);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -7896,7 +7896,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int k, vector<int>& a) {\n    nth_element(a.begin(), a.begin()+k-1, a.end()); return a[k-1];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int k, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int k;\n    cin >> k;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, k, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -8015,7 +8015,7 @@
         "Eliminate half the search space based on whether the middle is too small or too large."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int target, vector<int>& a) {\n    int l = 0, r = n - 1;\n    while (l <= r) { int m = (l + r) / 2; if (a[m] == target) return m; if (a[m] < target) l = m + 1; else r = m - 1; } return -1;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int target, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int target;\n    cin >> target;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, target, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -8134,7 +8134,7 @@
         "Eliminate half the search space based on whether the middle is too small or too large."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int target, vector<int>& a) {\n    int l = 0, r = n - 1;\n    while (l <= r) { int m = (l + r) / 2; if (a[m] == target) return m; if (a[m] < target) l = m + 1; else r = m - 1; } return -1;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int target, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int target;\n    cin >> target;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, target, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -8253,7 +8253,7 @@
         "Stop early if you reach the destination node."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n    vector<vector<int>> g(n);\n    for (auto [u,v]: edges) g[u].push_back(v);\n    vector<int> d(n,-1); queue<int> q; d[s]=0; q.push(s);\n    while(!q.empty()){int u=q.front();q.pop();for(int v:g[u])if(d[v]==-1){d[v]=d[u]+1;q.push(v);}}\n    return d[n-1];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int m;\n    cin >> m;\n    int s;\n    cin >> s;\n    vector<pair<int, int>> edges(m);\n    for (auto& edge : edges) cin >> edge.first >> edge.second;\n\n    Solution obj;\n    auto ans = obj.solve(n, m, s, edges);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -8372,7 +8372,7 @@
         "Stop early if you reach the destination node."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n    vector<vector<int>> g(n);\n    for (auto [u,v]: edges) g[u].push_back(v);\n    vector<int> d(n,-1); queue<int> q; d[s]=0; q.push(s);\n    while(!q.empty()){int u=q.front();q.pop();for(int v:g[u])if(d[v]==-1){d[v]=d[u]+1;q.push(v);}}\n    return d[n-1];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int m;\n    cin >> m;\n    int s;\n    cin >> s;\n    vector<pair<int, int>> edges(m);\n    for (auto& edge : edges) cin >> edge.first >> edge.second;\n\n    Solution obj;\n    auto ans = obj.solve(n, m, s, edges);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -8491,7 +8491,7 @@
         "Stop early if you reach the destination node."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n    vector<vector<int>> g(n);\n    for (auto [u,v]: edges) g[u].push_back(v);\n    vector<int> d(n,-1); queue<int> q; d[s]=0; q.push(s);\n    while(!q.empty()){int u=q.front();q.pop();for(int v:g[u])if(d[v]==-1){d[v]=d[u]+1;q.push(v);}}\n    return d[n-1];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int m;\n    cin >> m;\n    int s;\n    cin >> s;\n    vector<pair<int, int>> edges(m);\n    for (auto& edge : edges) cin >> edge.first >> edge.second;\n\n    Solution obj;\n    auto ans = obj.solve(n, m, s, edges);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -8610,7 +8610,7 @@
         "Stop early if you reach the destination node."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n    vector<vector<int>> g(n);\n    for (auto [u,v]: edges) g[u].push_back(v);\n    vector<int> d(n,-1); queue<int> q; d[s]=0; q.push(s);\n    while(!q.empty()){int u=q.front();q.pop();for(int v:g[u])if(d[v]==-1){d[v]=d[u]+1;q.push(v);}}\n    return d[n-1];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int m;\n    cin >> m;\n    int s;\n    cin >> s;\n    vector<pair<int, int>> edges(m);\n    for (auto& edge : edges) cin >> edge.first >> edge.second;\n\n    Solution obj;\n    auto ans = obj.solve(n, m, s, edges);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -8729,7 +8729,7 @@
         "Stop early if you reach the destination node."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n    vector<vector<int>> g(n);\n    for (auto [u,v]: edges) g[u].push_back(v);\n    vector<int> d(n,-1); queue<int> q; d[s]=0; q.push(s);\n    while(!q.empty()){int u=q.front();q.pop();for(int v:g[u])if(d[v]==-1){d[v]=d[u]+1;q.push(v);}}\n    return d[n-1];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int m;\n    cin >> m;\n    int s;\n    cin >> s;\n    vector<pair<int, int>> edges(m);\n    for (auto& edge : edges) cin >> edge.first >> edge.second;\n\n    Solution obj;\n    auto ans = obj.solve(n, m, s, edges);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -8848,7 +8848,7 @@
         "Stop early if you reach the destination node."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n    vector<vector<int>> g(n);\n    for (auto [u,v]: edges) g[u].push_back(v);\n    vector<int> d(n,-1); queue<int> q; d[s]=0; q.push(s);\n    while(!q.empty()){int u=q.front();q.pop();for(int v:g[u])if(d[v]==-1){d[v]=d[u]+1;q.push(v);}}\n    return d[n-1];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int m;\n    cin >> m;\n    int s;\n    cin >> s;\n    vector<pair<int, int>> edges(m);\n    for (auto& edge : edges) cin >> edge.first >> edge.second;\n\n    Solution obj;\n    auto ans = obj.solve(n, m, s, edges);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -8965,7 +8965,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n) {\n    long long r = 1; for (int i = 2; i <= n; i++) r *= i; return r;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    Solution obj;\n    auto ans = obj.solve(n);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -9084,7 +9084,7 @@
         "Initialize unreachable states with infinity except dp[0] = 0."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int amount, vector<int>& coins) {\n    vector<int> dp(amount+1, 1e9); dp[0]=0;\n    for (int x=1;x<=amount;x++) for (int c:coins) if (x>=c) dp[x]=min(dp[x],dp[x-c]+1);\n    return dp[amount]==1e9?-1:dp[amount];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int amount, vector<int>& coins) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int amount;\n    cin >> amount;\n    vector<int> coins(n);\n    for (int& x : coins) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, amount, coins);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -9201,7 +9201,7 @@
         "Verify your solution against all sample test cases before submitting."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n) {\n    long long r = 1; for (int i = 2; i <= n; i++) r *= i; return r;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    Solution obj;\n    auto ans = obj.solve(n);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -9320,7 +9320,7 @@
         "Initialize unreachable states with infinity except dp[0] = 0."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int amount, vector<int>& coins) {\n    vector<int> dp(amount+1, 1e9); dp[0]=0;\n    for (int x=1;x<=amount;x++) for (int c:coins) if (x>=c) dp[x]=min(dp[x],dp[x-c]+1);\n    return dp[amount]==1e9?-1:dp[amount];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int amount, vector<int>& coins) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int amount;\n    cin >> amount;\n    vector<int> coins(n);\n    for (int& x : coins) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, amount, coins);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -9440,7 +9440,7 @@
         "For each coin, try using it to improve dp[amount]."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int amount, vector<int>& coins) {\n    vector<int> dp(amount+1, 1e9); dp[0]=0;\n    for (int x=1;x<=amount;x++) for (int c:coins) if (x>=c) dp[x]=min(dp[x],dp[x-c]+1);\n    return dp[amount]==1e9?-1:dp[amount];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int amount, vector<int>& coins) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int amount;\n    cin >> amount;\n    vector<int> coins(n);\n    for (int& x : coins) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, amount, coins);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -9519,7 +9519,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-05T00:00:00.000Z",
       "updatedAt": "2026-04-05T00:00:00.000Z"
     },
@@ -9557,7 +9557,7 @@
         "Consider edge cases: empty input, single element, duplicates, and boundary values."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(string s) {\n    int l = 0, r = (int)s.size()-1;\n    while (l < r) if (s[l++] != s[r--]) return 0;\n    return 1;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(string s) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string s;\n    cin >> s;\n\n    Solution obj;\n    auto ans = obj.solve(s);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -9636,7 +9636,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-06T00:00:00.000Z",
       "updatedAt": "2026-04-06T00:00:00.000Z"
     },
@@ -9674,7 +9674,7 @@
         "Consider edge cases: empty input, single element, duplicates, and boundary values."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(string s) {\n    int l = 0, r = (int)s.size()-1;\n    while (l < r) if (s[l++] != s[r--]) return 0;\n    return 1;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(string s) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string s;\n    cin >> s;\n\n    Solution obj;\n    auto ans = obj.solve(s);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -9753,7 +9753,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-07T00:00:00.000Z",
       "updatedAt": "2026-04-07T00:00:00.000Z"
     },
@@ -9792,7 +9792,7 @@
         "Consider edge cases: empty input, single element, duplicates, and boundary values."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(string a, string b) {\n    int n=a.size(),m=b.size();\n    vector<vector<int>> dp(n+1,vector<int>(m+1));\n    for(int i=1;i<=n;i++)for(int j=1;j<=m;j++)dp[i][j]=a[i-1]==b[j-1]?dp[i-1][j-1]+1:max(dp[i-1][j],dp[i][j-1]);\n    return dp[n][m];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(string a, string b) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string a;\n    cin >> a;\n    string b;\n    cin >> b;\n\n    Solution obj;\n    auto ans = obj.solve(a, b);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -9871,7 +9871,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-08T00:00:00.000Z",
       "updatedAt": "2026-04-08T00:00:00.000Z"
     },
@@ -9910,7 +9910,7 @@
         "Consider edge cases: empty input, single element, duplicates, and boundary values."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(string a, string b) {\n    int n=a.size(),m=b.size();\n    vector<vector<int>> dp(n+1,vector<int>(m+1));\n    for(int i=1;i<=n;i++)for(int j=1;j<=m;j++)dp[i][j]=a[i-1]==b[j-1]?dp[i-1][j-1]+1:max(dp[i-1][j],dp[i][j-1]);\n    return dp[n][m];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(string a, string b) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string a;\n    cin >> a;\n    string b;\n    cin >> b;\n\n    Solution obj;\n    auto ans = obj.solve(a, b);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -9989,7 +9989,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-09T00:00:00.000Z",
       "updatedAt": "2026-04-09T00:00:00.000Z"
     },
@@ -10029,7 +10029,7 @@
         "For each coin, try using it to improve dp[amount]."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int amount, vector<int>& coins) {\n    vector<int> dp(amount+1, 1e9); dp[0]=0;\n    for (int x=1;x<=amount;x++) for (int c:coins) if (x>=c) dp[x]=min(dp[x],dp[x-c]+1);\n    return dp[amount]==1e9?-1:dp[amount];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int amount, vector<int>& coins) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int amount;\n    cin >> amount;\n    vector<int> coins(n);\n    for (int& x : coins) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, amount, coins);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -10108,7 +10108,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-10T00:00:00.000Z",
       "updatedAt": "2026-04-10T00:00:00.000Z"
     },
@@ -10147,7 +10147,7 @@
         "If extending the current subarray gives a smaller sum, start fresh at the current element."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, vector<long long>& a) {\n    long long best = LLONG_MIN, cur = 0;\n    for (auto x : a) { cur = max(x, cur + x); best = max(best, cur); }\n    return best;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, vector<long long>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<long long> a(n);\n    for (long long& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -10226,7 +10226,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-11T00:00:00.000Z",
       "updatedAt": "2026-04-11T00:00:00.000Z"
     },
@@ -10265,7 +10265,7 @@
         "Compare the middle element with the target each step."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int target, vector<int>& a) {\n    int l = 0, r = n - 1;\n    while (l <= r) { int m = (l + r) / 2; if (a[m] == target) return m; if (a[m] < target) l = m + 1; else r = m - 1; } return -1;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int target, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int target;\n    cin >> target;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, target, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -10344,7 +10344,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-12T00:00:00.000Z",
       "updatedAt": "2026-04-12T00:00:00.000Z"
     },
@@ -10384,7 +10384,7 @@
         "Consider edge cases: empty input, single element, duplicates, and boundary values."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(string a, string b) {\n    int n=a.size(),m=b.size();\n    vector<vector<int>> dp(n+1,vector<int>(m+1));\n    for(int i=1;i<=n;i++)for(int j=1;j<=m;j++)dp[i][j]=a[i-1]==b[j-1]?dp[i-1][j-1]+1:max(dp[i-1][j],dp[i][j-1]);\n    return dp[n][m];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(string a, string b) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string a;\n    cin >> a;\n    string b;\n    cin >> b;\n\n    Solution obj;\n    auto ans = obj.solve(a, b);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -10463,7 +10463,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-13T00:00:00.000Z",
       "updatedAt": "2026-04-13T00:00:00.000Z"
     },
@@ -10503,7 +10503,7 @@
         "Consider edge cases: empty input, single element, duplicates, and boundary values."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(string a, string b) {\n    int n=a.size(),m=b.size();\n    vector<vector<int>> dp(n+1,vector<int>(m+1));\n    for(int i=1;i<=n;i++)for(int j=1;j<=m;j++)dp[i][j]=a[i-1]==b[j-1]?dp[i-1][j-1]+1:max(dp[i-1][j],dp[i][j-1]);\n    return dp[n][m];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(string a, string b) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string a;\n    cin >> a;\n    string b;\n    cin >> b;\n\n    Solution obj;\n    auto ans = obj.solve(a, b);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -10582,7 +10582,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-14T00:00:00.000Z",
       "updatedAt": "2026-04-14T00:00:00.000Z"
     },
@@ -10620,7 +10620,7 @@
         "Use a stack to track unmatched opening brackets."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(string s) {\n    stack<char> st;\n    unordered_map<char,char> p = {{')','('},{']','['},{'}','{'}};\n    for (char c : s) {\n        if (c=='('||c=='['||c=='{') st.push(c);\n        else { if (st.empty()||st.top()!=p[c]) return 0; st.pop(); }\n    }\n    return st.empty()?1:0;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(string s) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string s;\n    cin >> s;\n\n    Solution obj;\n    auto ans = obj.solve(s);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -10699,7 +10699,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-15T00:00:00.000Z",
       "updatedAt": "2026-04-15T00:00:00.000Z"
     },
@@ -10737,12 +10737,12 @@
         "Add the new element entering the window and remove the one leaving."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, int k, vector<int>& a) {\n    long long cur = 0, best = LLONG_MIN;\n    for (int i = 0; i < n; i++) { cur += a[i]; if (i >= k) cur -= a[i-k]; if (i >= k-1) best = max(best, cur); } return best;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, int k, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int k;\n    cin >> k;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, k, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
           "input": "6 2\n1 3 2 5 4 6",
-          "expectedOutput": "9"
+          "expectedOutput": "10"
         },
         {
           "input": "5 5\n1 2 3 4 5",
@@ -10816,7 +10816,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-16T00:00:00.000Z",
       "updatedAt": "2026-04-16T00:00:00.000Z"
     },
@@ -10854,12 +10854,12 @@
         "Add the new element entering the window and remove the one leaving."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, int k, vector<int>& a) {\n    long long cur = 0, best = LLONG_MIN;\n    for (int i = 0; i < n; i++) { cur += a[i]; if (i >= k) cur -= a[i-k]; if (i >= k-1) best = max(best, cur); } return best;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, int k, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int k;\n    cin >> k;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, k, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
           "input": "6 2\n1 3 2 5 4 6",
-          "expectedOutput": "9"
+          "expectedOutput": "10"
         },
         {
           "input": "5 5\n1 2 3 4 5",
@@ -10933,7 +10933,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-17T00:00:00.000Z",
       "updatedAt": "2026-04-17T00:00:00.000Z"
     },
@@ -10973,7 +10973,7 @@
         "Use a queue and a distance array initialized to -1 or infinity."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n    vector<vector<int>> g(n);\n    for (auto [u,v]: edges) g[u].push_back(v);\n    vector<int> d(n,-1); queue<int> q; d[s]=0; q.push(s);\n    while(!q.empty()){int u=q.front();q.pop();for(int v:g[u])if(d[v]==-1){d[v]=d[u]+1;q.push(v);}}\n    return d[n-1];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int m;\n    cin >> m;\n    int s;\n    cin >> s;\n    vector<pair<int, int>> edges(m);\n    for (auto& edge : edges) cin >> edge.first >> edge.second;\n\n    Solution obj;\n    auto ans = obj.solve(n, m, s, edges);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -11052,7 +11052,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-18T00:00:00.000Z",
       "updatedAt": "2026-04-18T00:00:00.000Z"
     },
@@ -11092,7 +11092,7 @@
         "Use a queue and a distance array initialized to -1 or infinity."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n    vector<vector<int>> g(n);\n    for (auto [u,v]: edges) g[u].push_back(v);\n    vector<int> d(n,-1); queue<int> q; d[s]=0; q.push(s);\n    while(!q.empty()){int u=q.front();q.pop();for(int v:g[u])if(d[v]==-1){d[v]=d[u]+1;q.push(v);}}\n    return d[n-1];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int m;\n    cin >> m;\n    int s;\n    cin >> s;\n    vector<pair<int, int>> edges(m);\n    for (auto& edge : edges) cin >> edge.first >> edge.second;\n\n    Solution obj;\n    auto ans = obj.solve(n, m, s, edges);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -11171,7 +11171,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-19T00:00:00.000Z",
       "updatedAt": "2026-04-19T00:00:00.000Z"
     },
@@ -11210,7 +11210,7 @@
         "If extending the current subarray gives a smaller sum, start fresh at the current element."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, vector<long long>& a) {\n    long long best = LLONG_MIN, cur = 0;\n    for (auto x : a) { cur = max(x, cur + x); best = max(best, cur); }\n    return best;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, vector<long long>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<long long> a(n);\n    for (long long& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -11289,7 +11289,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-20T00:00:00.000Z",
       "updatedAt": "2026-04-20T00:00:00.000Z"
     },
@@ -11329,7 +11329,7 @@
         "Use a queue and a distance array initialized to -1 or infinity."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n    vector<vector<int>> g(n);\n    for (auto [u,v]: edges) g[u].push_back(v);\n    vector<int> d(n,-1); queue<int> q; d[s]=0; q.push(s);\n    while(!q.empty()){int u=q.front();q.pop();for(int v:g[u])if(d[v]==-1){d[v]=d[u]+1;q.push(v);}}\n    return d[n-1];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int m, int s, vector<pair<int,int>>& edges) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int m;\n    cin >> m;\n    int s;\n    cin >> s;\n    vector<pair<int, int>> edges(m);\n    for (auto& edge : edges) cin >> edge.first >> edge.second;\n\n    Solution obj;\n    auto ans = obj.solve(n, m, s, edges);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -11408,7 +11408,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-21T00:00:00.000Z",
       "updatedAt": "2026-04-21T00:00:00.000Z"
     },
@@ -11446,7 +11446,7 @@
         "Consider edge cases: empty input, single element, duplicates, and boundary values."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint solve(int n, int k, vector<int>& a) {\n    nth_element(a.begin(), a.begin()+k-1, a.end()); return a[k-1];\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int n, int k, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int k;\n    cin >> k;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, k, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -11525,7 +11525,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-22T00:00:00.000Z",
       "updatedAt": "2026-04-22T00:00:00.000Z"
     },
@@ -11563,12 +11563,12 @@
         "Add the new element entering the window and remove the one leaving."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, int k, vector<int>& a) {\n    long long cur = 0, best = LLONG_MIN;\n    for (int i = 0; i < n; i++) { cur += a[i]; if (i >= k) cur -= a[i-k]; if (i >= k-1) best = max(best, cur); } return best;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, int k, vector<int>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    int k;\n    cin >> k;\n    vector<int> a(n);\n    for (int& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, k, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
           "input": "6 2\n1 3 2 5 4 6",
-          "expectedOutput": "9"
+          "expectedOutput": "10"
         },
         {
           "input": "5 5\n1 2 3 4 5",
@@ -11642,7 +11642,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-23T00:00:00.000Z",
       "updatedAt": "2026-04-23T00:00:00.000Z"
     },
@@ -11682,7 +11682,7 @@
         "Maintain a running total variable and add each element to it."
       ],
       "starterCode": {
-        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nlong long solve(int n, vector<long long>& a) {\n    long long s = 0; for (auto x : a) s += x; return s;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    // Read input according to problem format, call solve(), print result\n    return 0;\n}"
+        "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long solve(int n, vector<long long>& a) {\n        // Write your code here.\n        return 0;\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<long long> a(n);\n    for (long long& x : a) cin >> x;\n\n    Solution obj;\n    auto ans = obj.solve(n, a);\n\n    cout << ans << endl;\n\n    return 0;\n}"
       },
       "visibleTestCases": [
         {
@@ -11761,7 +11761,7 @@
         }
       ],
       "timeLimit": 2000,
-      "memoryLimit": 512,
+      "memoryLimit": 500,
       "createdAt": "2026-04-24T00:00:00.000Z",
       "updatedAt": "2026-04-24T00:00:00.000Z"
     }

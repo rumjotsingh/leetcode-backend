@@ -63,6 +63,13 @@ if (pm.response.code === 201) {
 }
 `.trim();
 
+const saveDiscussionIdTest = `
+if (pm.response.code === 201) {
+  const json = pm.response.json();
+  if (json.data?.id) pm.collectionVariables.set('discussionId', json.data.id);
+}
+`.trim();
+
 const commonSuccessTests = `
 pm.test('Status code is successful', function () {
   pm.expect(pm.response.code).to.be.oneOf([200, 201]);
@@ -133,7 +140,7 @@ const errorExamples = {
 
 const collection = {
   info: {
-    name: 'CodeArena API',
+    name: 'CodeArena API v2',
     _postman_id: 'codearena-api-v1',
     description: `# CodeArena API Collection
 
@@ -202,6 +209,9 @@ Validation errors (400) include an \`errors\` array with \`field\` and \`message
     { key: 'userId', value: '', type: 'string' },
     { key: 'tagId', value: '', type: 'string' },
     { key: 'username', value: 'codearena_user', type: 'string' },
+    { key: 'playlistId', value: '', type: 'string' },
+    { key: 'playlistSlug', value: 'interview-150', type: 'string' },
+    { key: 'discussionId', value: '', type: 'string' },
   ],
   item: [
     {
@@ -284,15 +294,36 @@ Validation errors (400) include an \`errors\` array with \`field\` and \`message
           ],
         }),
         req({
+          name: 'Google Login',
+          method: 'POST',
+          url: '{{baseUrl}}/auth/google',
+          auth: noAuth(),
+          description: 'Sign in with Google using an ID token from Google Sign-In on the frontend.\n\nRequires `GOOGLE_CLIENT_ID` in server `.env`.',
+          body: { idToken: 'GOOGLE_ID_TOKEN_FROM_FRONTEND' },
+          tests: [commonSuccessTests, saveTokensTest].join('\n'),
+          examples: [
+            response('200 OK', 'OK', {
+              success: true,
+              data: {
+                user: { id: '665a1b2c3d4e5f6789012340', username: 'john_doe', email: 'john@gmail.com', avatar: 'https://lh3.googleusercontent.com/...', role: 'USER', authProvider: 'google', totalSolved: 0, createdAt: '2026-07-07T12:00:00.000Z' },
+                accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+                refreshToken: 'a1b2c3d4e5f678901234567890abcdef...',
+              },
+            }),
+            errorExamples[400]('Google login is not configured'),
+            errorExamples[401]('Invalid Google token'),
+          ],
+        }),
+        req({
           name: 'Get Current User',
           method: 'GET',
           url: '{{baseUrl}}/auth/me',
-          description: 'Get the authenticated user profile. Requires valid Bearer access token.',
+          description: 'Get the authenticated user profile with solve stats. Requires valid Bearer access token.',
           tests: [commonSuccessTests, `if (pm.response.json().data?.id) pm.collectionVariables.set('userId', pm.response.json().data.id);`].join('\n'),
           examples: [
             response('200 OK', 'OK', {
               success: true,
-              data: { id: '665a1b2c3d4e5f6789012340', username: 'codearena_user', email: 'user@codearena.dev', avatar: '', role: 'USER', totalSolved: 5, createdAt: '2026-07-07T12:00:00.000Z' },
+              data: { id: '665a1b2c3d4e5f6789012340', username: 'codearena_user', email: 'user@codearena.dev', avatar: '', role: 'USER', authProvider: 'local', totalSolved: 5, easySolved: 2, mediumSolved: 2, hardSolved: 1, createdAt: '2026-07-07T12:00:00.000Z' },
             }),
             errorExamples[401]('Invalid or expired access token'),
           ],
@@ -332,7 +363,7 @@ Validation errors (400) include an \`errors\` array with \`field\` and \`message
           name: 'Update Profile',
           method: 'PATCH',
           url: '{{baseUrl}}/users/me',
-          description: '**Planned endpoint** — Update authenticated user profile (avatar, username).\n\n> Not yet implemented in MVP. Included as API contract reference.',
+          description: 'Update authenticated user profile (avatar, username).',
           body: { avatar: 'https://avatars.codearena.dev/u/codearena_user.png', username: 'new_username' },
           tests: commonSuccessTests,
           examples: [
@@ -346,7 +377,7 @@ Validation errors (400) include an \`errors\` array with \`field\` and \`message
           name: 'Change Password',
           method: 'POST',
           url: '{{baseUrl}}/users/me/change-password',
-          description: '**Planned endpoint** — Change password for authenticated user.\n\n> Not yet implemented in MVP. Included as API contract reference.',
+          description: 'Change password for authenticated user.',
           body: { currentPassword: 'SecurePass123!', newPassword: 'NewSecurePass456!' },
           tests: commonSuccessTests,
           examples: [
@@ -732,13 +763,208 @@ Validation errors (400) include an \`errors\` array with \`field\` and \`message
       ],
     },
     {
-      name: '6. Health',
-      description: 'Service health check (no /api prefix).',
+      name: '6. Leaderboard',
+      description: 'Global rankings by problems solved.',
+      item: [
+        req({
+          name: 'Get Leaderboard',
+          method: 'GET',
+          url: '{{baseUrl}}/leaderboard?page=1&limit=20',
+          auth: noAuth(),
+          description: 'Get global leaderboard ranked by total problems solved. Pass Bearer token optionally to get `myRank`.',
+          tests: commonSuccessTests,
+          examples: [
+            response('200 OK', 'OK', {
+              success: true,
+              data: {
+                leaderboard: [{ rank: 1, username: 'top_coder', avatar: '', totalSolved: 42, easySolved: 20, mediumSolved: 15, hardSolved: 7, isCurrentUser: false }],
+                myRank: 5,
+                pagination: { page: 1, limit: 20, total: 50, totalPages: 3 },
+              },
+            }),
+          ],
+        }),
+      ],
+    },
+    {
+      name: '7. Playlists',
+      description: 'Official curated playlists and user-created problem lists.',
+      item: [
+        req({
+          name: 'Get All Playlists',
+          method: 'GET',
+          url: '{{baseUrl}}/playlists?page=1&limit=20',
+          auth: noAuth(),
+          description: 'List official playlists and public user playlists. Use `?official=true` for curated lists only.',
+          tests: commonSuccessTests,
+          examples: [
+            response('200 OK', 'OK', {
+              success: true,
+              data: {
+                playlists: [{ id: '665a1b2c3d4e5f6789012360', title: 'Interview 150', slug: 'interview-150', description: 'Curated interview problems', isOfficial: true, isPublic: true, problemCount: 30, creator: null, createdAt: '2026-07-07T12:00:00.000Z', updatedAt: '2026-07-07T12:00:00.000Z' }],
+                pagination: { page: 1, limit: 20, total: 5, totalPages: 1 },
+              },
+            }),
+          ],
+        }),
+        req({
+          name: 'Get Playlist By Slug',
+          method: 'GET',
+          url: '{{baseUrl}}/playlists/{{playlistSlug}}',
+          auth: noAuth(),
+          description: 'Get playlist details with ordered problem list. Official slugs: `interview-150`, `master-array`, `dp-master`, `graph-essentials`, `blind-75-style`.',
+          tests: commonSuccessTests,
+          examples: [
+            response('200 OK', 'OK', {
+              success: true,
+              data: { id: '665a1b2c3d4e5f6789012360', title: 'Interview 150', slug: 'interview-150', isOfficial: true, problemCount: 30, problems: [{ id: '6a4d1029aa8c1384b2a447a9', title: 'Sum of Array Elements', slug: 'sum-of-array-elements', difficulty: 'EASY', tags: ['Arrays'] }] },
+            }),
+            errorExamples[404]('Playlist not found'),
+          ],
+        }),
+        req({
+          name: 'Create Playlist',
+          method: 'POST',
+          url: '{{baseUrl}}/playlists',
+          description: 'Create a user playlist. Anyone can create playlists.',
+          body: { title: 'My Study Plan', description: 'Problems to practice', isPublic: true, problemSlugs: ['sum-of-array-elements', 'pair-sum-indices'] },
+          tests: [commonSuccessTests, `if (pm.response.json().data?.id) pm.collectionVariables.set('playlistId', pm.response.json().data.id);`].join('\n'),
+          examples: [
+            response('201 Created', 'Created', { success: true, data: { id: '665a1b2c3d4e5f6789012361', title: 'My Study Plan', slug: 'my-study-plan', isOfficial: false, problemCount: 2 } }, 201),
+            errorExamples[401]('Access token required'),
+          ],
+        }),
+        req({
+          name: 'Add Problem to Playlist',
+          method: 'POST',
+          url: '{{baseUrl}}/playlists/{{playlistId}}/problems',
+          description: 'Add a problem to your playlist by slug.',
+          body: { problemSlug: '{{problemSlug}}' },
+          tests: commonSuccessTests,
+          examples: [response('200 OK', 'OK', { success: true, data: { id: '{{playlistId}}', problemCount: 3 } })],
+        }),
+        req({
+          name: 'Delete Playlist',
+          method: 'DELETE',
+          url: '{{baseUrl}}/playlists/{{playlistId}}',
+          description: 'Delete your own playlist. Official playlists cannot be deleted.',
+          tests: `pm.test('Status code is 200', () => pm.response.to.have.status(200));`,
+          examples: [
+            response('200 OK', 'OK', { success: true, message: 'Playlist deleted successfully' }),
+            errorExamples[403]('Official playlists cannot be deleted'),
+          ],
+        }),
+      ],
+    },
+    {
+      name: '8. Discussions',
+      description: 'Problem discussions, replies, and upvotes.',
+      item: [
+        req({
+          name: 'Get Discussions for Problem',
+          method: 'GET',
+          url: '{{baseUrl}}/discussions/problem/{{problemSlug}}?page=1&limit=20',
+          auth: noAuth(),
+          description: 'List discussions for a problem by slug.',
+          tests: commonSuccessTests,
+          examples: [
+            response('200 OK', 'OK', {
+              success: true,
+              data: {
+                discussions: [{ id: '665a1b2c3d4e5f6789012370', title: 'Optimal approach?', content: 'Can we do O(n)?', upvoteCount: 3, replyCount: 2, author: { username: 'coder1', avatar: '' }, createdAt: '2026-07-07T12:00:00.000Z' }],
+                pagination: { page: 1, limit: 20, total: 1, totalPages: 1 },
+              },
+            }),
+          ],
+        }),
+        req({
+          name: 'Get Discussion',
+          method: 'GET',
+          url: '{{baseUrl}}/discussions/{{discussionId}}',
+          auth: noAuth(),
+          description: 'Get a discussion thread with all replies.',
+          tests: commonSuccessTests,
+          examples: [
+            response('200 OK', 'OK', {
+              success: true,
+              data: { id: '{{discussionId}}', title: 'Optimal approach?', content: 'Can we do O(n)?', upvoteCount: 3, replyCount: 1, replies: [{ id: '665a1b2c3d4e5f6789012371', content: 'Yes, use a hash map.', upvoteCount: 1, author: { username: 'coder2', avatar: '' } }] },
+            }),
+            errorExamples[404]('Discussion not found'),
+          ],
+        }),
+        req({
+          name: 'Create Discussion',
+          method: 'POST',
+          url: '{{baseUrl}}/discussions',
+          description: 'Start a new discussion on a problem.',
+          body: { problemSlug: '{{problemSlug}}', title: 'How to optimize?', content: 'My solution gets TLE on large inputs.' },
+          tests: [commonSuccessTests, saveDiscussionIdTest].join('\n'),
+          examples: [
+            response('201 Created', 'Created', { success: true, data: { id: '665a1b2c3d4e5f6789012370', title: 'How to optimize?', upvoteCount: 0, replyCount: 0 } }, 201),
+            errorExamples[401]('Access token required'),
+          ],
+        }),
+        req({
+          name: 'Reply to Discussion',
+          method: 'POST',
+          url: '{{baseUrl}}/discussions/{{discussionId}}/replies',
+          description: 'Post a reply to a discussion.',
+          body: { content: 'Try using a sliding window approach.' },
+          tests: commonSuccessTests,
+          examples: [
+            response('201 Created', 'Created', { success: true, data: { id: '665a1b2c3d4e5f6789012371', content: 'Try using a sliding window approach.', upvoteCount: 0 } }, 201),
+          ],
+        }),
+        req({
+          name: 'Upvote Discussion',
+          method: 'POST',
+          url: '{{baseUrl}}/discussions/{{discussionId}}/upvote',
+          description: 'Toggle upvote on a discussion.',
+          tests: commonSuccessTests,
+          examples: [response('200 OK', 'OK', { success: true, data: { upvoteCount: 4, upvoted: true } })],
+        }),
+      ],
+    },
+    {
+      name: '9. Dashboard',
+      description: 'LeetCode-style authenticated user dashboard — stats, progress rings, streak, submission calendar.',
+      item: [
+        req({
+          name: 'Get Dashboard',
+          method: 'GET',
+          url: '{{baseUrl}}/dashboard',
+          description: 'Single endpoint for the auth dashboard UI.\n\nReturns:\n- **profile** — user info\n- **stats** — total solved, rank, acceptance rate, streak\n- **progress** — easy/medium/hard/overall rings (solved vs total)\n- **recentAccepted** — last 5 solved problems\n- **recentSubmissions** — last 10 submissions\n- **submissionCalendar** — heatmap data `{ "YYYY-MM-DD": count }`',
+          tests: commonSuccessTests,
+          examples: [
+            response('200 OK', 'OK', {
+              success: true,
+              data: {
+                profile: { id: '665a1b2c3d4e5f6789012340', username: 'codearena_user', email: 'user@codearena.dev', avatar: '', role: 'USER', authProvider: 'local', memberSince: '2026-07-07T12:00:00.000Z' },
+                stats: { totalSolved: 12, rank: 5, acceptanceRate: 68.5, submissionCount: 45, streak: { current: 3, longest: 7 } },
+                progress: {
+                  easy: { solved: 5, total: 40, percentage: 12.5 },
+                  medium: { solved: 4, total: 40, percentage: 10 },
+                  hard: { solved: 3, total: 20, percentage: 15 },
+                  overall: { solved: 12, total: 100, percentage: 12 },
+                },
+                recentAccepted: [{ problem: { id: '6a4d1029aa8c1384b2a447a9', title: 'Sum of Array Elements', slug: 'sum-of-array-elements', difficulty: 'EASY', tags: ['Arrays'] }, solvedAt: '2026-07-08T10:00:00.000Z' }],
+                recentSubmissions: [{ id: '665a1b2c3d4e5f6789012346', status: 'ACCEPTED', language: 'cpp', runtime: 68, memory: 42000, createdAt: '2026-07-08T10:00:00.000Z', problem: { id: '6a4d1029aa8c1384b2a447a9', title: 'Sum of Array Elements', slug: 'sum-of-array-elements', difficulty: 'EASY' } }],
+                submissionCalendar: { '2026-07-06': 2, '2026-07-07': 1, '2026-07-08': 3 },
+              },
+            }),
+            errorExamples[401]('Access token required'),
+          ],
+        }),
+      ],
+    },
+    {
+      name: '10. Health',
+      description: 'Service health check.',
       item: [
         req({
           name: 'Health Check',
           method: 'GET',
-          url: 'http://localhost:3000/health',
+          url: '{{baseUrl}}/health',
           auth: noAuth(),
           description: 'Check if the API server is running. Uses root URL (not `baseUrl`).',
           tests: `pm.test('Status 200', () => pm.response.to.have.status(200));`,
@@ -750,6 +976,37 @@ Validation errors (400) include an \`errors\` array with \`field\` and \`message
 };
 
 const outPath = path.join(__dirname, 'CodeArena.postman_collection.json');
+const v2Path = path.join(__dirname, 'CodeArena-LeetCode.postman_collection.json');
 fs.writeFileSync(outPath, JSON.stringify(collection, null, 2));
+
+const leetcodeFolders = collection.item.filter((folder) =>
+  ['1. Authentication', '2. Users', '6. Leaderboard', '7. Playlists', '8. Discussions', '9. Dashboard'].includes(folder.name)
+);
+
+const leetcodeCollection = {
+  ...collection,
+  info: {
+    ...collection.info,
+    name: 'CodeArena LeetCode Features',
+    _postman_id: 'codearena-leetcode-v2',
+    description: `# CodeArena LeetCode-Style APIs
+
+Focused collection for auth dashboard, Google login, leaderboard, playlists, and discussions.
+
+## Quick start
+1. Run **Login** or **Google Login**
+2. Run **Get Dashboard** for full user dashboard data
+3. Browse **Playlists** (try slug \`interview-150\`)
+4. Test **Discussions** on any problem slug
+
+${collection.info.description}`,
+  },
+  item: leetcodeFolders,
+};
+
+fs.writeFileSync(v2Path, JSON.stringify(leetcodeCollection, null, 2));
+
 console.log(`Generated: ${outPath}`);
-console.log(`Requests: ${collection.item.reduce((n, f) => n + f.item.length, 0)}`);
+console.log(`Generated: ${v2Path}`);
+console.log(`Full requests: ${collection.item.reduce((n, f) => n + f.item.length, 0)}`);
+console.log(`LeetCode requests: ${leetcodeCollection.item.reduce((n, f) => n + f.item.length, 0)}`);

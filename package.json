@@ -14,7 +14,11 @@
     "generate:problems": "node scripts/generate-problems-dataset.js",
     "postman:generate": "node postman/generate-collection.js"
   },
-  "keywords": ["leetcode", "coding-platform", "codearena"],
+  "keywords": [
+    "leetcode",
+    "coding-platform",
+    "codearena"
+  ],
   "license": "MIT",
   "dependencies": {
     "axios": "^1.7.9",
@@ -24,6 +28,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
+    "google-auth-library": "^10.9.0",
     "helmet": "^8.0.0",
     "ioredis": "^5.4.2",
     "jsonwebtoken": "^9.0.2",

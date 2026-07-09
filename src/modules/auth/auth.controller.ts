@@ -2,7 +2,7 @@ import { Response, NextFunction } from 'express';
 import { AuthRequest } from '../../middlewares/auth.middleware';
 import { authService } from './auth.service';
 import { sendSuccess, sendMessage } from '../../utils/response';
-import { RegisterInput, LoginInput, RefreshTokenInput } from './auth.schema';
+import { RegisterInput, LoginInput, RefreshTokenInput, GoogleLoginInput } from './auth.schema';
 
 export class AuthController {
   async register(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
@@ -47,6 +47,15 @@ export class AuthController {
     try {
       const user = await authService.getMe(req.user!.userId);
       sendSuccess(res, user);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async googleLogin(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const result = await authService.googleLogin(req.body as GoogleLoginInput);
+      sendSuccess(res, result);
     } catch (error) {
       next(error);
     }

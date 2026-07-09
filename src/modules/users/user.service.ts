@@ -1,13 +1,105 @@
 import { Types } from 'mongoose';
+import bcrypt from 'bcryptjs';
 import { env } from '../../config/env';
 import { REDIS_KEYS, SUBMISSION_STATUS, DIFFICULTIES } from '../../config/constants';
 import { User } from './user.model';
 import { Submission } from '../submissions/submission.model';
 import { Problem } from '../problems/problem.model';
-import { NotFoundError } from '../../utils/errors';
+import { NotFoundError, ConflictError, BadRequestError } from '../../utils/errors';
 import { cacheGet, cacheSet, cacheDel } from '../../redis/client';
+import { UpdateProfileInput, ChangePasswordInput } from './user.schema';
+
+const SALT_ROUNDS = 12;
 
 export class UserService {
+  async getSolveStats(userId: string) {
+    const user = await User.findById(userId);
+    if (!user) throw new NotFoundError('User not found');
+
+    const acceptedSubmissions = await Submission.find({
+      userId: user._id,
+      status: SUBMISSION_STATUS.ACCEPTED,
+    })
+      .populate('problemId', 'difficulty')
+      .lean();
+
+    const solvedProblemIds = new Set<string>();
+    const difficultyCounts = { easySolved: 0, mediumSolved: 0, hardSolved: 0 };
+
+    for (const sub of acceptedSubmissions) {
+      const problem = sub.problemId as unknown as { _id: Types.ObjectId; difficulty: string } | null;
+      if (!problem) continue;
+      const pid = problem._id.toString();
+      if (solvedProblemIds.has(pid)) continue;
+      solvedProblemIds.add(pid);
+
+      switch (problem.difficulty) {
+        case DIFFICULTIES.EASY:
+          difficultyCounts.easySolved++;
+          break;
+        case DIFFICULTIES.MEDIUM:
+          difficultyCounts.mediumSolved++;
+          break;
+        case DIFFICULTIES.HARD:
+          difficultyCounts.hardSolved++;
+          break;
+      }
+    }
+
+    return {
+      easySolved: difficultyCounts.easySolved,
+      mediumSolved: difficultyCounts.mediumSolved,
+      hardSolved: difficultyCounts.hardSolved,
+    };
+  }
+
+  async updateProfile(userId: string, input: UpdateProfileInput) {
+    const user = await User.findById(userId);
+    if (!user) throw new NotFoundError('User not found');
+
+    if (input.username && input.username !== user.username) {
+      const taken = await User.findOne({ username: input.username });
+      if (taken) throw new ConflictError('Username already taken');
+      await cacheDel(REDIS_KEYS.USER_PROFILE(user.username));
+      user.username = input.username;
+    }
+
+    if (input.avatar !== undefined) {
+      user.avatar = input.avatar;
+    }
+
+    await user.save();
+    await cacheDel(REDIS_KEYS.USER_PROFILE(user.username));
+
+    return {
+      id: user._id.toString(),
+      username: user.username,
+      email: user.email,
+      avatar: user.avatar,
+      role: user.role,
+      authProvider: user.authProvider,
+      totalSolved: user.totalSolved,
+      createdAt: user.createdAt,
+    };
+  }
+
+  async changePassword(userId: string, input: ChangePasswordInput) {
+    const user = await User.findById(userId).select('+passwordHash');
+    if (!user) throw new NotFoundError('User not found');
+
+    if (user.authProvider === 'google' && !user.passwordHash) {
+      throw new BadRequestError('Google accounts must set a password via account linking first');
+    }
+
+    const isValid = await bcrypt.compare(input.currentPassword, user.passwordHash);
+    if (!isValid) {
+      throw new BadRequestError('Current password is incorrect');
+    }
+
+    user.passwordHash = await bcrypt.hash(input.newPassword, SALT_ROUNDS);
+    await user.save();
+  }
+
   async getProfile(username: string) {
     const cacheKey = REDIS_KEYS.USER_PROFILE(username);
     const cached = await cacheGet<ReturnType<typeof this.buildProfile>>(cacheKey);
